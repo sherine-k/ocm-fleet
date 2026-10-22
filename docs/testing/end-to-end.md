@@ -286,11 +286,10 @@ Two workflows run against an AIO. They are not interchangeable: one runs the
 full UI/CLI e2e on **this checkout's** image; the other runs a **sanity** on
 the **already published** Quay AIO that end users `podman run`.
 
-The published-image job is **temporarily skipped** pending the
-[OpenShift CI migration](https://github.com/openshift/release/pull/87406) and
-public Quay image publication. The live `openshift/release` AIO image-graph
-contract test in `deploy-aio:test` is also skipped. Re-enable both in a
-follow-up PR once those prerequisites are ready.
+The live `openshift/release` AIO image-graph contract test in
+`deploy-aio:test` checks the image build dependencies, mirror destinations,
+and generated Prow presubmit/postsubmit jobs against the local Dockerfile.
+It requires network access to `raw.githubusercontent.com`.
 
 [`.github/workflows/e2e.yml`](../../.github/workflows/e2e.yml) plus
 [`.github/actions/setup-e2e`](../../.github/actions/setup-e2e/) test **this

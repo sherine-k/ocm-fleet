@@ -8,9 +8,8 @@
 //     FROM text vs OpenShift rewrite rules. Patch Dockerfile.aio,
 //     then matching from:/inputs.*.as in openshift/release.
 //   - TestOpenShiftReleaseAIOImageGraphContract: HTTP GET of
-//     openshift/release master. Inspect the GET URL in the failure (network,
-//     404, or openshift/release drift). Temporarily skipped pending the
-//     OCM Fleet CI migration.
+//     openshift/release main. Inspect the GET URL in the failure (network,
+//     404, or openshift/release drift).
 //
 // YAML structs are a trimmed subset of the remote schema; unknown fields
 // are dropped, so a renamed remote field looks like a missing image/job.
@@ -32,9 +31,9 @@ import (
 )
 
 const (
-	// releaseRawBase is github.com/openshift/release@master as raw GitHub
+	// releaseRawBase is github.com/openshift/release@main as raw GitHub
 	// content. These files are not in ocm-fleet.
-	releaseRawBase = "https://raw.githubusercontent.com/openshift/release/master/"
+	releaseRawBase = "https://raw.githubusercontent.com/openshift/release/main/"
 	// ciConfigPath is the ci-operator config that owns the AIO image graph.
 	// Generated Prow jobs must stay in sync with this file.
 	ciConfigPath = "ci-operator/config/stolostron/ocm-fleet/stolostron-ocm-fleet-main.yaml"
@@ -77,7 +76,7 @@ func TestDockerfileResourceManagerOpenShiftRewriteContract(t *testing.T) {
 }
 
 // TestOpenShiftReleaseAIOImageGraphContract fetches ci-operator
-// config and generated jobs from openshift/release@master and checks them
+// config and generated jobs from openshift/release@main and checks them
 // against this repo's Dockerfile FROM list.
 //
 // It does not re-check last-FROM / ${SERVER_IMAGE} (that is
@@ -86,8 +85,6 @@ func TestDockerfileResourceManagerOpenShiftRewriteContract(t *testing.T) {
 //
 // A failure is a GET error (network, 404) or openshift/release drift.
 func TestOpenShiftReleaseAIOImageGraphContract(t *testing.T) {
-	t.Skip("temporarily skipped pending https://github.com/openshift/release/pull/87406; re-enable in a follow-up PR once the CI migration is ready")
-
 	froms := dockerfileFROMImages(t, readDockerfileResourceManager(t))
 	cfg := fetchOpenShiftReleaseYAML[ciOperatorConfig](t, releaseRawBase+ciConfigPath)
 	presubmits := fetchOpenShiftReleaseYAML[presubmitsFile](t, releaseRawBase+presubmitsPath)

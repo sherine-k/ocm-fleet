@@ -179,11 +179,10 @@ npx nx test:e2e e2e-cli      # Playwright CLI journeys (fleetctl, Kind, delivery
 
 Container-based tests need Podman and its compatible socket; see the
 [E2E prerequisites](docs/testing/end-to-end.md). `deploy-aio:test` also fetches
-the destination's live CI configuration from `openshift/release`, but that
-check is temporarily skipped pending the
-[CI migration](https://github.com/openshift/release/pull/87406). The published
-Quay sanity job is also temporarily skipped. Both will be re-enabled in a
-follow-up PR once the migration and public image publication are ready.
+the destination's live CI configuration from `openshift/release` to check the
+AIO image graph and generated Prow jobs. The published Quay sanity job tests
+`quay.io/stolostron/ocm-fleet:latest`; see
+[GitHub Actions](docs/testing/end-to-end.md#github-actions) for its scope.
 
 Frontend e2e expects the sandbox origin
 (`https://ocm-fleet.localhost:8085`). Playwright flags after `--`,
