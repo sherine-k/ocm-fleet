@@ -3,6 +3,7 @@
 import { appendFile } from "node:fs/promises";
 import { $, sleep } from "zx";
 
+import { ensureCiInotifyLimits } from "../../../e2e/sandbox/inotify-host.mjs";
 import { ensureCiKeyringLimits } from "../../../e2e/sandbox/keyring-host.mjs";
 
 $.verbose = true;
@@ -65,6 +66,7 @@ if (!(await $`podman network exists kind`.nothrow()).ok) {
 }
 
 try {
+  ensureCiInotifyLimits();
   ensureCiKeyringLimits({
     error: (message) => console.error(message),
     log: (message) => console.log(message),

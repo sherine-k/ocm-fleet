@@ -48,6 +48,37 @@ Short UI cheat sheet: [e2e/web/README.md](../../e2e/web/README.md).
   host engine. Override with `PODMAN_SOCKET` if needed. On macOS, a live
   Docker-compatible socket or `podman machine` is enough.
 
+### Inotify instance limit (rootless Podman)
+
+Parallel rootless Kind nodes share the Podman user's inotify instance quota.
+E2E requires `fs.inotify.max_user_instances >= 1280` on the host running
+the node containers. A low limit can prevent kubelet from starting its
+watchers, leaving clusters `CREATING` until the readiness timeout. Node logs
+report `inotify_init: too many open files` or
+`unable to create inotify: too many open files`.
+
+CI host setup raises a low limit, preserves higher values, and verifies the
+effective kernel value before provisioning clusters. It does not rely on
+runner-image settings in `/etc/sysctl.conf` having been applied. The local
+sandbox runner does not change this setting. To inspect it on native Linux:
+
+```bash
+sysctl fs.inotify.max_user_instances
+```
+
+If it is below 1280, raise it temporarily (until reboot):
+
+```bash
+sudo sysctl -w fs.inotify.max_user_instances=1280
+```
+
+For Podman machine, run the commands inside the VM instead:
+
+```bash
+podman machine ssh -- sysctl fs.inotify.max_user_instances
+podman machine ssh -- sudo sysctl -w fs.inotify.max_user_instances=1280
+```
+
 ### Kernel keyring quotas (rootless Podman)
 
 Rootless Kind node containers consume kernel keys from the Podman user's
@@ -336,8 +367,9 @@ The Playwright matrix entries restore the same tree-keyed tar and run in
 parallel. They do not share a running container.
 
 `setup-e2e` is the only place that should install Node or Playwright,
-load or pull the image, start user `podman.socket`, and ensure the `kind`
-network. The `cache` role never starts OCM Fleet. The `e2e` role never
+load or pull the image, start user `podman.socket`, ensure the `kind`
+network, and configure the inotify and keyring quotas for rootless Kind.
+The `cache` role never starts OCM Fleet. The `e2e` role never
 rebuilds the image because every test job sets `OCM_FLEET_E2E_AIO_PREBUILT=1`.
 The `published` role never restores the checkout tar; it pulls the published
 tag. The test job sets `OCM_FLEET_E2E_AIO_PULL=1` and runs Playwright
