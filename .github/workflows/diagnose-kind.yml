@@ -18,13 +18,7 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - name: baseline-24
-            os: ubuntu-24.04
-            inotify: false
-          - name: baseline-26
-            os: ubuntu-26.04
-            inotify: false
-          - name: inotify-26
+          - name: instances-only-26
             os: ubuntu-26.04
             inotify: true
     steps:
@@ -50,7 +44,7 @@ jobs:
         run: |
           podman info
           if [ "$RAISE_INOTIFY" = true ]; then
-            sudo sysctl -w fs.inotify.max_user_instances=1280 fs.inotify.max_user_watches=655360
+            sudo sysctl -w fs.inotify.max_user_instances=1280
           fi
           sysctl fs.inotify.max_user_instances fs.inotify.max_user_watches
 
