@@ -72,7 +72,8 @@ runs:
       id: aio-key
       shell: bash
       run: |
-        echo "key=aio-images-v3-${{ runner.os }}-${{ runner.arch }}-$(git rev-parse 'HEAD^{tree}')" >> "$GITHUB_OUTPUT"
+        # Diagnostic branch: restore the exact failing main image on every OS.
+        echo "key=aio-images-v3-${{ runner.os }}-${{ runner.arch }}-826a69c2bf3b111cec47c1d85c2e0582bde83ab9" >> "$GITHUB_OUTPUT"
 
     - name: Restore AIO images
       if: ${{ inputs.role != 'published' }}
