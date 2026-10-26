@@ -1,6 +1,13 @@
 {
+  "source_commit": "775b87ed75af7dc1977240f6a220183504cd055d",
+  "prompt_sha256": "a0f7654c962887413f59c4567a5fcc9e16bf57c92833458196f202fd265d9fd6",
+  "model": "gpt-6-luna",
+  "reasoning_effort": "max",
+  "codex_home": "/Users/ahenning/.codex-work",
+  "cli_version": "codex-cli 0.164.0",
   "method": "Mechanical replay of frozen run and assessment logs; no model calls or source review.",
   "definitions": {
+    "tokens": "Provider usage: cached input is included in input; reasoning is included in output. Initial input is the whole request. Accumulated input counts history repeatedly and is not context size or dollar cost.",
     "tool_calls": "Model-issued tool calls, grouped by name; nested shell executions are separate, not added to this total.",
     "shell_commands": "Actual completed CommandExecution events, once per ID; includes compound scripts, excludes polling calls and unobserved child processes.",
     "recognized_skill_reads": "Successful nonempty commands with a logger-classified read path ending in SKILL.md, once per skill per command. This is retrieval, not proof of semantic use; unclassified/indirect reads can be missed.",
@@ -18,6 +25,30 @@
         "status": "recorded FileChange",
         "call_id": "call_EoajHW7qiwrmAhxDy7OJtNHE",
         "request_number": 7
+      },
+      "context": {
+        "checkpoints": {
+          "initial_request": {
+            "request_number": 1,
+            "input_tokens": 15827,
+            "cached_input_tokens": 0
+          },
+          "before_first_edit": {
+            "request_number": 7,
+            "input_tokens": 75951,
+            "cached_input_tokens": 57685
+          }
+        },
+        "totals": {
+          "input_tokens": 13842957,
+          "cached_input_tokens": 13646371,
+          "output_tokens": 93708,
+          "reasoning_output_tokens": 67394
+        },
+        "total_input_plus_output_tokens": 13936665,
+        "requests": 111,
+        "maximum_request_input_tokens": 196256,
+        "compactions_observed": 0
       },
       "overall": {
         "tool_calls": 110,
@@ -91,24 +122,6 @@
         "nonzero_job_exits": 0,
         "scope": "Only the checks present in these logs; no inference about untested behavior."
       },
-      "sources": {
-        "rollout": {
-          "path": "/private/tmp/ocm-fleet-fm124-v2.tvdbmukb/artifacts/control-1/rollout.jsonl",
-          "sha256": "fb6cd8b2b663a39aed12a08ca5743a33a82219bb76d29e9ba81cfecb35ec5eba"
-        },
-        "result.json": {
-          "path": "/private/tmp/ocm-fleet-fm124-v2.tvdbmukb/assessment/control-1/result.json",
-          "sha256": "57ae37b333969ac0398f06c34cf0ed2fea7a19eec0977f2c9904e5c901c25b55"
-        },
-        "cli.log": {
-          "path": "/private/tmp/ocm-fleet-fm124-v2.tvdbmukb/assessment/control-1/cli.log",
-          "sha256": "6d20a5ea148ad27f3de8b592270cdc5f1c0f47057f4836e92e489297704dcd9c"
-        },
-        "stream.log": {
-          "path": "/private/tmp/ocm-fleet-fm124-v2.tvdbmukb/assessment/control-1/stream.log",
-          "sha256": "966da2aa8613a14614f4435892fa0d1402677f88f708f0e69ea8ff323892bfdb"
-        }
-      },
       "supplemental_login_check": {
         "check": "login_stream_contract",
         "method": "supplemental_static_check",
@@ -125,6 +138,36 @@
           "/private/tmp/ocm-fleet-fm124-v2.tvdbmukb/control-1/client/cli/src/auth/login.ts": "4b5af5458514f87a0a7a738343d3231249723ab722975acc51ac3d817f1cf415",
           "/private/tmp/ocm-fleet-fm124-v2.tvdbmukb/control-1/e2e/cli/tests/support/fleetctl.ts": "17054e78d30e2c3b6077644fcab851adffb6941d7daedd9646c5f95e5376a457"
         }
+      },
+      "elapsed_seconds": 871.28,
+      "thread_id": "01a16a70-8abb-71a0-b729-723477429012",
+      "sources": {
+        "rollout": {
+          "path": "/private/tmp/ocm-fleet-fm124-v2.tvdbmukb/artifacts/control-1/rollout.jsonl",
+          "sha256": "fb6cd8b2b663a39aed12a08ca5743a33a82219bb76d29e9ba81cfecb35ec5eba"
+        },
+        "result.json": {
+          "path": "/private/tmp/ocm-fleet-fm124-v2.tvdbmukb/assessment/control-1/result.json",
+          "sha256": "57ae37b333969ac0398f06c34cf0ed2fea7a19eec0977f2c9904e5c901c25b55"
+        },
+        "cli.log": {
+          "path": "/private/tmp/ocm-fleet-fm124-v2.tvdbmukb/assessment/control-1/cli.log",
+          "sha256": "6d20a5ea148ad27f3de8b592270cdc5f1c0f47057f4836e92e489297704dcd9c"
+        },
+        "stream.log": {
+          "path": "/private/tmp/ocm-fleet-fm124-v2.tvdbmukb/assessment/control-1/stream.log",
+          "sha256": "966da2aa8613a14614f4435892fa0d1402677f88f708f0e69ea8ff323892bfdb"
+        },
+        "run.json": {
+          "path": "/private/tmp/ocm-fleet-fm124-v2.tvdbmukb/artifacts/control-1/run.json",
+          "sha256": "c121ff79e666c969fd8df38a2ad2e9b11ed940c17d549f9b2d353d3b8cea86b4"
+        }
+      },
+      "artifacts": {
+        "rollout.jsonl": "/private/tmp/ocm-fleet-fm124-v2.tvdbmukb/artifacts/control-1/rollout.jsonl",
+        "events.jsonl": "/private/tmp/ocm-fleet-fm124-v2.tvdbmukb/artifacts/control-1/events.jsonl",
+        "changes.patch": "/private/tmp/ocm-fleet-fm124-v2.tvdbmukb/artifacts/control-1/changes.patch",
+        "final.md": "/private/tmp/ocm-fleet-fm124-v2.tvdbmukb/artifacts/control-1/final.md"
       }
     },
     {
@@ -135,6 +178,30 @@
         "status": "recorded FileChange",
         "call_id": "call_qQJlrBpl1lMqnRxame12SKEa",
         "request_number": 11
+      },
+      "context": {
+        "checkpoints": {
+          "initial_request": {
+            "request_number": 1,
+            "input_tokens": 15827,
+            "cached_input_tokens": 0
+          },
+          "before_first_edit": {
+            "request_number": 11,
+            "input_tokens": 77534,
+            "cached_input_tokens": 71825
+          }
+        },
+        "totals": {
+          "input_tokens": 9365833,
+          "cached_input_tokens": 9159054,
+          "output_tokens": 97043,
+          "reasoning_output_tokens": 67331
+        },
+        "total_input_plus_output_tokens": 9462876,
+        "requests": 70,
+        "maximum_request_input_tokens": 206572,
+        "compactions_observed": 0
       },
       "overall": {
         "tool_calls": 69,
@@ -210,24 +277,6 @@
         "nonzero_job_exits": 0,
         "scope": "Only the checks present in these logs; no inference about untested behavior."
       },
-      "sources": {
-        "rollout": {
-          "path": "/private/tmp/ocm-fleet-fm124-v2.tvdbmukb/artifacts/control-2/rollout.jsonl",
-          "sha256": "e1edd0ac708075ddd1b4098891263c6b931b585f08b1da960a426ecad557b5ad"
-        },
-        "result.json": {
-          "path": "/private/tmp/ocm-fleet-fm124-v2.tvdbmukb/assessment/control-2/result.json",
-          "sha256": "476d781bef77ed5a6b17ae5d6eb5cfcd95fcfb5db5beb1e26a92ad4cb386967c"
-        },
-        "cli.log": {
-          "path": "/private/tmp/ocm-fleet-fm124-v2.tvdbmukb/assessment/control-2/cli.log",
-          "sha256": "fdd2ca5afa5c1d2b4c47b83a40fb8d775dd38eb71eea0da9c468f5635ab62ec5"
-        },
-        "stream.log": {
-          "path": "/private/tmp/ocm-fleet-fm124-v2.tvdbmukb/assessment/control-2/stream.log",
-          "sha256": "39eb8b20f01dbce01357f2ec409b1bbb87c2500326d138efca5dbbd81cf89728"
-        }
-      },
       "supplemental_login_check": {
         "check": "login_stream_contract",
         "method": "supplemental_static_check",
@@ -244,6 +293,36 @@
           "/private/tmp/ocm-fleet-fm124-v2.tvdbmukb/control-2/client/cli/src/auth/login.ts": "ad633b97d66c796d2333edbdd5cfebda5b79f82cea71df4ca2a6a4d7726ef092",
           "/private/tmp/ocm-fleet-fm124-v2.tvdbmukb/control-2/e2e/cli/tests/support/fleetctl.ts": "bb5f613d4028423b4bb20e06b154c40618a7fe313d72721686a0b6f6027c6556"
         }
+      },
+      "elapsed_seconds": 894.868,
+      "thread_id": "01a16a70-8abb-7c83-b03a-ec1d068a8bf2",
+      "sources": {
+        "rollout": {
+          "path": "/private/tmp/ocm-fleet-fm124-v2.tvdbmukb/artifacts/control-2/rollout.jsonl",
+          "sha256": "e1edd0ac708075ddd1b4098891263c6b931b585f08b1da960a426ecad557b5ad"
+        },
+        "result.json": {
+          "path": "/private/tmp/ocm-fleet-fm124-v2.tvdbmukb/assessment/control-2/result.json",
+          "sha256": "476d781bef77ed5a6b17ae5d6eb5cfcd95fcfb5db5beb1e26a92ad4cb386967c"
+        },
+        "cli.log": {
+          "path": "/private/tmp/ocm-fleet-fm124-v2.tvdbmukb/assessment/control-2/cli.log",
+          "sha256": "fdd2ca5afa5c1d2b4c47b83a40fb8d775dd38eb71eea0da9c468f5635ab62ec5"
+        },
+        "stream.log": {
+          "path": "/private/tmp/ocm-fleet-fm124-v2.tvdbmukb/assessment/control-2/stream.log",
+          "sha256": "39eb8b20f01dbce01357f2ec409b1bbb87c2500326d138efca5dbbd81cf89728"
+        },
+        "run.json": {
+          "path": "/private/tmp/ocm-fleet-fm124-v2.tvdbmukb/artifacts/control-2/run.json",
+          "sha256": "61284d420af33b5bbf405bdc6f22f17d2cac2bf89f9c997fa8c96dd3f07a0df6"
+        }
+      },
+      "artifacts": {
+        "rollout.jsonl": "/private/tmp/ocm-fleet-fm124-v2.tvdbmukb/artifacts/control-2/rollout.jsonl",
+        "events.jsonl": "/private/tmp/ocm-fleet-fm124-v2.tvdbmukb/artifacts/control-2/events.jsonl",
+        "changes.patch": "/private/tmp/ocm-fleet-fm124-v2.tvdbmukb/artifacts/control-2/changes.patch",
+        "final.md": "/private/tmp/ocm-fleet-fm124-v2.tvdbmukb/artifacts/control-2/final.md"
       }
     },
     {
@@ -254,6 +333,30 @@
         "status": "recorded FileChange",
         "call_id": "call_e5d0T8GWo6lpEBcT3TspcErJ",
         "request_number": 15
+      },
+      "context": {
+        "checkpoints": {
+          "initial_request": {
+            "request_number": 1,
+            "input_tokens": 14931,
+            "cached_input_tokens": 0
+          },
+          "before_first_edit": {
+            "request_number": 15,
+            "input_tokens": 79712,
+            "cached_input_tokens": 78339
+          }
+        },
+        "totals": {
+          "input_tokens": 13020944,
+          "cached_input_tokens": 12807329,
+          "output_tokens": 94894,
+          "reasoning_output_tokens": 65179
+        },
+        "total_input_plus_output_tokens": 13115838,
+        "requests": 110,
+        "maximum_request_input_tokens": 213288,
+        "compactions_observed": 0
       },
       "overall": {
         "tool_calls": 109,
@@ -324,24 +427,6 @@
         "nonzero_job_exits": 0,
         "scope": "Only the checks present in these logs; no inference about untested behavior."
       },
-      "sources": {
-        "rollout": {
-          "path": "/private/tmp/ocm-fleet-fm124-treatment-v2.0rz45_hl/artifacts/treatment-1/rollout.jsonl",
-          "sha256": "5abd5901032d232019c57fd91a04c04497cc99776cb2974a81a36083ec0f4942"
-        },
-        "result.json": {
-          "path": "/private/tmp/ocm-fleet-fm124-treatment-v2.0rz45_hl/assessment/treatment-1/result.json",
-          "sha256": "ad32999af603685c9528cf3e75998a3a104b6214df7a9aa3c3e624d1b2cf731d"
-        },
-        "cli.log": {
-          "path": "/private/tmp/ocm-fleet-fm124-treatment-v2.0rz45_hl/assessment/treatment-1/cli.log",
-          "sha256": "d614879e6b13390188f2be9604ff2ba97c454b87e380a229e69dbcbf561d18cd"
-        },
-        "stream.log": {
-          "path": "/private/tmp/ocm-fleet-fm124-treatment-v2.0rz45_hl/assessment/treatment-1/stream.log",
-          "sha256": "12d9d8fdf7ff7d4b738cb2abccbb29354f72c49684e64eb9d8404a06aa4ee33b"
-        }
-      },
       "supplemental_login_check": {
         "check": "login_stream_contract",
         "method": "supplemental_static_check",
@@ -358,6 +443,36 @@
           "/private/tmp/ocm-fleet-fm124-treatment-v2.0rz45_hl/treatment-1/client/cli/src/auth/login.ts": "dabe2cb126a60ec7fb64450e765af42fd415c86e5524b5e407cf79312c5da121",
           "/private/tmp/ocm-fleet-fm124-treatment-v2.0rz45_hl/treatment-1/e2e/cli/tests/support/fleetctl.ts": "b8942edc2ec43c34b1276ae55f1989190a42c44815d5b3c8ad13eb1f46818a61"
         }
+      },
+      "elapsed_seconds": 1066.67,
+      "thread_id": "01a17976-27d2-7610-9aa2-ebbaf74cbba1",
+      "sources": {
+        "rollout": {
+          "path": "/private/tmp/ocm-fleet-fm124-treatment-v2.0rz45_hl/artifacts/treatment-1/rollout.jsonl",
+          "sha256": "5abd5901032d232019c57fd91a04c04497cc99776cb2974a81a36083ec0f4942"
+        },
+        "result.json": {
+          "path": "/private/tmp/ocm-fleet-fm124-treatment-v2.0rz45_hl/assessment/treatment-1/result.json",
+          "sha256": "ad32999af603685c9528cf3e75998a3a104b6214df7a9aa3c3e624d1b2cf731d"
+        },
+        "cli.log": {
+          "path": "/private/tmp/ocm-fleet-fm124-treatment-v2.0rz45_hl/assessment/treatment-1/cli.log",
+          "sha256": "d614879e6b13390188f2be9604ff2ba97c454b87e380a229e69dbcbf561d18cd"
+        },
+        "stream.log": {
+          "path": "/private/tmp/ocm-fleet-fm124-treatment-v2.0rz45_hl/assessment/treatment-1/stream.log",
+          "sha256": "12d9d8fdf7ff7d4b738cb2abccbb29354f72c49684e64eb9d8404a06aa4ee33b"
+        },
+        "run.json": {
+          "path": "/private/tmp/ocm-fleet-fm124-treatment-v2.0rz45_hl/artifacts/treatment-1/run.json",
+          "sha256": "53e4e71d037b979f0f42d08640976b2e61a86d0d42e1c6067ef9dbd2097750cb"
+        }
+      },
+      "artifacts": {
+        "rollout.jsonl": "/private/tmp/ocm-fleet-fm124-treatment-v2.0rz45_hl/artifacts/treatment-1/rollout.jsonl",
+        "events.jsonl": "/private/tmp/ocm-fleet-fm124-treatment-v2.0rz45_hl/artifacts/treatment-1/events.jsonl",
+        "changes.patch": "/private/tmp/ocm-fleet-fm124-treatment-v2.0rz45_hl/artifacts/treatment-1/changes.patch",
+        "final.md": "/private/tmp/ocm-fleet-fm124-treatment-v2.0rz45_hl/artifacts/treatment-1/final.md"
       }
     },
     {
@@ -368,6 +483,30 @@
         "status": "recorded FileChange",
         "call_id": "call_gkXa1zvAW6c8u39AwVun9BYO",
         "request_number": 11
+      },
+      "context": {
+        "checkpoints": {
+          "initial_request": {
+            "request_number": 1,
+            "input_tokens": 14931,
+            "cached_input_tokens": 0
+          },
+          "before_first_edit": {
+            "request_number": 11,
+            "input_tokens": 76631,
+            "cached_input_tokens": 74933
+          }
+        },
+        "totals": {
+          "input_tokens": 9195070,
+          "cached_input_tokens": 9008508,
+          "output_tokens": 87863,
+          "reasoning_output_tokens": 56484
+        },
+        "total_input_plus_output_tokens": 9282933,
+        "requests": 74,
+        "maximum_request_input_tokens": 186343,
+        "compactions_observed": 0
       },
       "overall": {
         "tool_calls": 73,
@@ -436,24 +575,6 @@
         "nonzero_job_exits": 0,
         "scope": "Only the checks present in these logs; no inference about untested behavior."
       },
-      "sources": {
-        "rollout": {
-          "path": "/private/tmp/ocm-fleet-fm124-treatment-v2.0rz45_hl/artifacts/treatment-2/rollout.jsonl",
-          "sha256": "675c3d8e2ed63508fd93ba64a2696b841063026a63931d05dddb12cf8c5eb275"
-        },
-        "result.json": {
-          "path": "/private/tmp/ocm-fleet-fm124-treatment-v2.0rz45_hl/assessment/treatment-2/result.json",
-          "sha256": "b3d1bf1346ecb15803d9dc512e5db36306b0f0747d32f593045dda5b2b730767"
-        },
-        "cli.log": {
-          "path": "/private/tmp/ocm-fleet-fm124-treatment-v2.0rz45_hl/assessment/treatment-2/cli.log",
-          "sha256": "4e0e8500ed6f267b3b510e0744659052112174a5115bedeb96b5033e44d37c04"
-        },
-        "stream.log": {
-          "path": "/private/tmp/ocm-fleet-fm124-treatment-v2.0rz45_hl/assessment/treatment-2/stream.log",
-          "sha256": "1a2f31f8af010bd29aacb9fa5225a086e359366419cce2a32402fb3c10643053"
-        }
-      },
       "supplemental_login_check": {
         "check": "login_stream_contract",
         "method": "supplemental_static_check",
@@ -470,6 +591,36 @@
           "/private/tmp/ocm-fleet-fm124-treatment-v2.0rz45_hl/treatment-2/client/cli/src/auth/login.ts": "e41e263c4b9951cd8432343c598bff1d58d757aef2a645ab9e1f385f28a64cbe",
           "/private/tmp/ocm-fleet-fm124-treatment-v2.0rz45_hl/treatment-2/e2e/cli/tests/support/fleetctl.ts": "17054e78d30e2c3b6077644fcab851adffb6941d7daedd9646c5f95e5376a457"
         }
+      },
+      "elapsed_seconds": 872.006,
+      "thread_id": "01a17976-27d2-74a1-b1e9-39bbaaa31a68",
+      "sources": {
+        "rollout": {
+          "path": "/private/tmp/ocm-fleet-fm124-treatment-v2.0rz45_hl/artifacts/treatment-2/rollout.jsonl",
+          "sha256": "675c3d8e2ed63508fd93ba64a2696b841063026a63931d05dddb12cf8c5eb275"
+        },
+        "result.json": {
+          "path": "/private/tmp/ocm-fleet-fm124-treatment-v2.0rz45_hl/assessment/treatment-2/result.json",
+          "sha256": "b3d1bf1346ecb15803d9dc512e5db36306b0f0747d32f593045dda5b2b730767"
+        },
+        "cli.log": {
+          "path": "/private/tmp/ocm-fleet-fm124-treatment-v2.0rz45_hl/assessment/treatment-2/cli.log",
+          "sha256": "4e0e8500ed6f267b3b510e0744659052112174a5115bedeb96b5033e44d37c04"
+        },
+        "stream.log": {
+          "path": "/private/tmp/ocm-fleet-fm124-treatment-v2.0rz45_hl/assessment/treatment-2/stream.log",
+          "sha256": "1a2f31f8af010bd29aacb9fa5225a086e359366419cce2a32402fb3c10643053"
+        },
+        "run.json": {
+          "path": "/private/tmp/ocm-fleet-fm124-treatment-v2.0rz45_hl/artifacts/treatment-2/run.json",
+          "sha256": "fb77cc212192f9020ddc9fecac0a1cd3a715721133a2b7983cc2c7aca3752731"
+        }
+      },
+      "artifacts": {
+        "rollout.jsonl": "/private/tmp/ocm-fleet-fm124-treatment-v2.0rz45_hl/artifacts/treatment-2/rollout.jsonl",
+        "events.jsonl": "/private/tmp/ocm-fleet-fm124-treatment-v2.0rz45_hl/artifacts/treatment-2/events.jsonl",
+        "changes.patch": "/private/tmp/ocm-fleet-fm124-treatment-v2.0rz45_hl/artifacts/treatment-2/changes.patch",
+        "final.md": "/private/tmp/ocm-fleet-fm124-treatment-v2.0rz45_hl/artifacts/treatment-2/final.md"
       }
     }
   ],

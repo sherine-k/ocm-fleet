@@ -85,8 +85,22 @@ def summarize(records, analysis):
             "file_change_events_by_status": counts(item["status"] for item in patches),
         }
 
+    def checkpoint(row):
+        return {key: row[key] for key in ("request_number", "input_tokens", "cached_input_tokens")}
+
+    edit_request = first_edit["request_number"] if first_edit else None
+    edit = next((row for row in analysis["requests"] if row["request_number"] == edit_request), None)
     return {
         "run": analysis["run"], "first_recorded_edit": first_edit,
+        "context": {
+            "checkpoints": {"initial_request": checkpoint(analysis["requests"][0]),
+                            "before_first_edit": checkpoint(edit) if edit else None},
+            "totals": analysis["totals"],
+            "total_input_plus_output_tokens": analysis["totals"]["input_tokens"] + analysis["totals"]["output_tokens"],
+            "requests": len(analysis["requests"]),
+            "maximum_request_input_tokens": max(row["input_tokens"] for row in analysis["requests"]),
+            "compactions_observed": analysis["compactions_observed"],
+        },
         "overall": aggregate(calls, executions),
         "before_first_edit": aggregate(
             [item for item in calls if item["record_number"] < cutoff],
@@ -94,6 +108,7 @@ def summarize(records, analysis):
         ) if cutoff is not None else None,
         "tool_call_ledger": calls, "execution_ledger": executions,
         "definitions": {
+            "tokens": "Provider usage: cached input is included in input; reasoning is included in output. Initial input is the whole request. Accumulated input counts history repeatedly and is not context size or dollar cost.",
             "tool_calls": "Model-issued tool calls, grouped by name; nested shell executions are separate, not added to this total.",
             "shell_commands": "Actual completed CommandExecution events, once per ID; includes compound scripts, excludes polling calls and unobserved child processes.",
             "recognized_skill_reads": "Successful nonempty commands with a logger-classified read path ending in SKILL.md, once per skill per command. This is retrieval, not proof of semantic use; unclassified/indirect reads can be missed.",

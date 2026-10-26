@@ -41,7 +41,7 @@ Use `first_edit_request: null` when review establishes that no edit occurred.
 An empty read list means none confirmed; without review the list stays null.
 The analyzer derives inclusion request numbers from the tool-result ledger and
 excludes reads not consumed by the first-edit request. Keep call IDs as evidence.
-Review files for the completed controls live in [reviews/](reviews/).
+Review files for the completed controls live in [reviews/](reviews).
 
 Initial input is the whole request, not a separate count for each guidance
 component. Growth includes source, assistant history, and tool results as well
@@ -103,9 +103,17 @@ null; arbitrary shell writes are not detected. Skill reads are observable
 retrievals, not proof of semantic use. Nonzero exits include iterative failures
 and searches without matches, so they are not remaining-defect counts.
 
+One compound shell script counts once; unlogged child processes and polling
+are excluded. Skill reads require a successful nonempty command with a
+logger-classified read path ending in `SKILL.md`; indirect/unclassified reads
+can be missed. Read/search/list categories come from the logger, can overlap,
+and retain `unknown`. The activity output also includes both token checkpoints
+and usage totals, so a current run's metrics can be read together.
+
 ```sh
 python3 docs/agent-evals/fm-124/harness/tool_statistics.py "$rollout" \
   --run "$name" --assessment "$assessment_directory" --output "$statistics_json"
+node docs/agent-evals/fm-124/harness/login_stream_contract.mjs "$subject"
 SUBJECT="$checkout_with_dependencies" node --test \
   docs/agent-evals/fm-124/harness/test_login_stream_contract.mjs
 ```
@@ -114,8 +122,11 @@ The optional assessment input mechanically parses explicit unittest/Vitest
 totals and preserves job exits. Untested behavior has no measured pass/fail
 result. A supplemental static login-stream contract check was added after the
 four v2 runs; keep that result separate from frozen acceptance. See the
-[activity comparison](activity-v2-2026-10-26.md) for all four runs, exact counting
-definitions, limitations, and the supplemental check command.
+[current table](README.md) and consolidated [data/definitions](results.json).
+The static check uses the installed TypeScript parser to compare the directly
+declared AUTH_URL writer stream with the helper's readline input. It prints JSON
+and exits 0 for passed, 1 for failed, or 2 for unsupported/ambiguous wiring.
+It reads subject files without modifying them and does not exercise browser login.
 
 ## Correctness and current state
 
@@ -127,14 +138,9 @@ subject conversations. Preserve
 failures; do not repair or coach completed subjects. Setup and assessment usage
 are excluded from subject totals. Live authentication/backend coverage is absent.
 
-The [fresh controls](controls-v2-2026-10-23.md) completed on October 23, 2026.
-Their [two-checkpoint summaries](checkpoints-v2-2026-10-23.json) are derived from
-those frozen rollouts; no coding sessions were rerun. Both pass the 11 targeted
-independent checks, with an additional login-helper regression found in Control 1
-by source review. These are A/A controls, not evidence of a guidance improvement.
-The [treatment pair](treatments-v2-2026-10-26.md) completed on October 26 using
-the combined lean AGENTS.md and Nx-skill removal, the same task, and the same
-acceptance checks. Both passed all 11 independent cases; source review found the
-login-helper regression in Treatment 2. Initial snapshots match the frozen lean
-startup snapshot after path/envelope and environment-date normalization. Record
-such drift rather than attributing it to the treatment.
+The four completed v2 runs are consolidated in [results.json](results.json).
+Keep one current data file and [short table](README.md); earlier writeups,
+checkpoint snapshots, and detailed request timelines live under [archive/](archive/).
+Controls completed October 23 and treatments October 26, 2026. Checkout paths
+and environment dates differ between cohorts. Two runs per cohort do not
+establish a reliable total-cost or speed effect.

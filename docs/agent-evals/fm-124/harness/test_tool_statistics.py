@@ -51,6 +51,12 @@ class ToolStatisticsTests(unittest.TestCase):
         self.assertEqual(stats["before_first_edit"]["shell_commands"], 1)
         self.assertEqual(stats["before_first_edit"]["nonzero_shell_exits"], 0)
         self.assertEqual(stats["overall"]["shell_commands"], 3)
+        context = stats["context"]
+        self.assertEqual(context["checkpoints"]["initial_request"]["input_tokens"], 100)
+        self.assertEqual(context["checkpoints"]["before_first_edit"]["input_tokens"], 140)
+        self.assertEqual(context["total_input_plus_output_tokens"], 423)
+        self.assertEqual(context["maximum_request_input_tokens"], 180)
+        self.assertEqual(context["requests"], 3)
 
     def test_skill_reads_require_read_classification_success_and_output(self):
         skill = {"type": "read", "path": ".agents/skills/nx-workspace/SKILL.md"}
@@ -72,6 +78,7 @@ class ToolStatisticsTests(unittest.TestCase):
         stats = self.summary(records)
         self.assertIsNone(stats["first_recorded_edit"])
         self.assertIsNone(stats["before_first_edit"])
+        self.assertIsNone(stats["context"]["checkpoints"]["before_first_edit"])
         self.assertEqual(stats["overall"]["file_change_events_by_status"], {"failed": 1})
 
     def test_duplicate_execution_id_is_rejected(self):

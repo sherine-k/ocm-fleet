@@ -54,7 +54,7 @@ given assessment feedback, and no new experimental model calls were made.
 
 ## Method for the treatment comparison
 
-The [version-2 protocol](protocol-v2.md) specifies the startup factors,
+The [version-2 protocol](../protocol-v2.md) specifies the startup factors,
 retrieval ledger, counting calibration gate, and reusable offline analyzer.
 It also records which harness changes are complete and which remain pending.
 

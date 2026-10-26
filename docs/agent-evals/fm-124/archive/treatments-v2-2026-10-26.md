@@ -8,7 +8,7 @@ Claude/Cursor skill links, skill lockfile, and Nx-only Claude plugin settings
 are removed. Nested guides and application code are unchanged by that commit.
 
 Two treatment sessions completed with the exact frozen
-[version-2 prompt](fleetctl-output-prompt-v2.txt). Compared with the
+[version-2 prompt](../fleetctl-output-prompt-v2.txt). Compared with the
 [October 23 controls](controls-v2-2026-10-23.md), their initial requests are
 896 input tokens smaller (5.7%). Their context before the first edit is
 slightly larger on average. This supports a smaller startup request, not a
@@ -41,7 +41,7 @@ Confirmed guidance/documentation reads consumed by the edit request:
 The UI guide is 10,249 bytes. Its retrieval varies within both cohorts; removing
 Nx instructions did not eliminate that independent context load. Neither
 treatment read a skill body during its full session. Complete reads and excerpts
-are distinguished in the small [review files](reviews/); call IDs link them to
+are distinguished in the small [review files](../reviews); call IDs link them to
 returned text. Filename listings and search-only matches are excluded.
 
 ## Supporting results
@@ -111,7 +111,7 @@ Concurrent execution and shared provider caching are further limitations.
 The [machine-readable report](treatments-v2-2026-10-26.json) contains reconciled
 usage, checkpoint/read evidence, session IDs, validation, source findings, and
 cohort calculations. The [184-request timeline](context-growth-treatment-v2-2026-10-26.csv)
-is supporting evidence. The [protocol](protocol-v2.md) documents preparation,
+is supporting evidence. The [protocol](../protocol-v2.md) documents preparation,
 capture, and offline review; it has no separate token-count endpoint or
 four-way startup preparation. Fourteen harness unit tests passed after adding
 treatment preparation, including preserving nested guides/unrelated skills and
