@@ -1,5 +1,9 @@
 {
   "name": "web",
+  "metadata": {
+    "description": "OCM Fleet web console with navigation, authentication, and plugin hosting.",
+    "additionalAgentInstruction": "See docs/ui/AGENTS.md for agent instructions."
+  },
   "root": "client/web",
   "sourceRoot": "client/web/src",
   "projectType": "application",

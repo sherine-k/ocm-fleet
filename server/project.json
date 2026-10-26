@@ -1,5 +1,9 @@
 {
   "name": "server",
+  "metadata": {
+    "description": "OCM Fleet resource manager and API server.",
+    "additionalAgentInstruction": "Currently contains some embedded addons, which is an artifact of prototype code, not a desired end state. See server/AGENTS.md for agent instructions."
+  },
   "root": "server",
   "projectType": "application",
   "tags": ["lang:go", "scope:backend"],

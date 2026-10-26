@@ -1,5 +1,8 @@
 {
   "name": "e2e-web",
+  "metadata": {
+    "description": "End-to-end tests for the OCM Fleet web console."
+  },
   "root": "e2e/web",
   "sourceRoot": "e2e/web/tests",
   "projectType": "library",

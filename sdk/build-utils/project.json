@@ -1,5 +1,8 @@
 {
   "name": "build-utils",
+  "metadata": {
+    "description": "Shared build helpers for web console plugins and UI assets."
+  },
   "root": "sdk/build-utils",
   "sourceRoot": "sdk/build-utils/src",
   "projectType": "library",

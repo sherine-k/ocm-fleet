@@ -1,5 +1,8 @@
 {
   "name": "proto",
+  "metadata": {
+    "description": "OCM Fleet API protocol definitions and code generation."
+  },
   "root": "proto",
   "projectType": "library",
   "tags": ["lang:proto", "scope:api"],

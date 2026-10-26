@@ -1,5 +1,8 @@
 {
   "name": "deploy-aio",
+  "metadata": {
+    "description": "Startup and proxy utilities for the OCM Fleet all-in-one container."
+  },
   "root": "deploy/aio",
   "projectType": "application",
   "tags": ["lang:go", "scope:deploy"],

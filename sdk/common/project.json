@@ -1,5 +1,8 @@
 {
   "name": "common",
+  "metadata": {
+    "description": "Shared types, utilities, and hooks for the web console and its plugins."
+  },
   "root": "sdk/common",
   "sourceRoot": "sdk/common/src",
   "projectType": "library",

@@ -1,5 +1,8 @@
 {
   "name": "nx-cache-proxy",
+  "metadata": {
+    "description": "Nx remote cache proxy backed by MinIO."
+  },
   "targets": {
     "build": {
       "command": "cd sdk/nx-cache-proxy && go build -o ../../bin/nx-cache-proxy ./cmd/nx-cache-proxy/",

@@ -1,7 +1,24 @@
 {
   "name": "ocm-fleet",
+  "metadata": {
+    "description": "Workspace tasks for building, packaging, and deploying OCM Fleet."
+  },
   "root": ".",
   "targets": {
+    "generate-agents": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node tools/generate-agents.mjs"
+      },
+      "cache": false
+    },
+    "test:generate-agents": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node --test tools/generate-agents.test.mjs"
+      },
+      "cache": false
+    },
     "fleetctl": {
       "executor": "nx:run-commands",
       "dependsOn": ["cli:build"],

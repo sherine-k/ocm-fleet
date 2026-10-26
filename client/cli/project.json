@@ -1,5 +1,8 @@
 {
   "name": "cli",
+  "metadata": {
+    "description": "Fleetctl command-line interface for OCM Fleet."
+  },
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "client/cli/src",
   "projectType": "application",

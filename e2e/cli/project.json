@@ -1,5 +1,8 @@
 {
   "name": "e2e-cli",
+  "metadata": {
+    "description": "End-to-end tests for Fleetctl workflows."
+  },
   "root": "e2e/cli",
   "sourceRoot": "e2e/cli/tests",
   "projectType": "library",

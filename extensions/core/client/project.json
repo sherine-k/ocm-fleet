@@ -1,5 +1,8 @@
 {
   "name": "plugins",
+  "metadata": {
+    "description": "Core web console plugins for managing OCM Fleet resources."
+  },
   "root": "extensions/core/client",
   "sourceRoot": "extensions/core/client/src",
   "projectType": "library",

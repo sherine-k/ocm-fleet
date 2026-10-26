@@ -1,5 +1,8 @@
 {
   "name": "@ocm-fleet/kind-server",
+  "metadata": {
+    "description": "Placeholder for the Kind cluster provider backend extension."
+  },
   "root": "extensions/kind/server",
   "projectType": "library",
   "tags": ["lang:go", "scope:backend", "type:extension"],
