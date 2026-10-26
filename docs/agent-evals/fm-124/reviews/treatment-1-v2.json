@@ -1,0 +1,26 @@
+{
+  "first_edit_request": 15,
+  "guidance_reads": [
+    {
+      "source": "client/cli/AGENTS.md",
+      "call_id": "call_Jdo1pwrqVKgbgrvBnhknArJG",
+      "scope": "complete"
+    },
+    {
+      "source": "client/cli/README.md",
+      "call_id": "call_3FBy9NNPlndnVHSQ1kSZLnHf",
+      "scope": "complete"
+    },
+    {
+      "source": "docs/ui/cli-feature-inventory.md",
+      "call_id": "call_blsVgYtVh3HOgkXyL5MMkX1x",
+      "scope": "excerpt"
+    },
+    {
+      "source": "docs/ui/cli-feature-inventory.md",
+      "call_id": "call_3CBlENJjO6wTdx12UgdEgDIx",
+      "scope": "excerpt"
+    }
+  ],
+  "review_note": "All pre-edit calls inspected: reads/searches only; no earlier shell source edits. First apply_patch changed source files. Complete guide/README bodies and selected inventory excerpts verified against baseline source in returned text. No skill bodies read before first edit."
+}

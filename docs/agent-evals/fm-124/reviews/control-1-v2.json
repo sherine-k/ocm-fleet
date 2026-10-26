@@ -1,0 +1,31 @@
+{
+  "first_edit_request": 7,
+  "guidance_reads": [
+    {
+      "source": ".agents/skills/nx-workspace/SKILL.md",
+      "call_id": "call_by3KKrHiPrk4QVLMqF0E6R5E",
+      "scope": "complete"
+    },
+    {
+      "source": "client/cli/AGENTS.md",
+      "call_id": "call_ngoy1iOApl3AQnC7kDBLJqfm",
+      "scope": "complete"
+    },
+    {
+      "source": "docs/ui/AGENTS.md",
+      "call_id": "call_ngoy1iOApl3AQnC7kDBLJqfm",
+      "scope": "complete"
+    },
+    {
+      "source": "client/cli/README.md",
+      "call_id": "call_9qdiDcArSuFTvmKci6ktYB2J",
+      "scope": "complete"
+    },
+    {
+      "source": "docs/ui/cli-feature-inventory.md",
+      "call_id": "call_ulrupwDIadgzvp0kIqAcoESR",
+      "scope": "excerpt"
+    }
+  ],
+  "review_note": "Raw pre-edit tool calls checked for earlier shell edits. Complete guidance/README bodies and documentation excerpts verified in returned text; filename listings and search-only matches excluded."
+}

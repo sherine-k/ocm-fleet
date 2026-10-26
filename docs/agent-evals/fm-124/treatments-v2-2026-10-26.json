@@ -1,0 +1,243 @@
+{
+  "comparison": "Lean Nx guidance and removal of repository Nx skills; prompt v2",
+  "source_commit": "775b87ed75af7dc1977240f6a220183504cd055d",
+  "prompt_sha256": "a0f7654c962887413f59c4567a5fcc9e16bf57c92833458196f202fd265d9fd6",
+  "local_bundle": "/private/tmp/ocm-fleet-fm124-treatment-v2.0rz45_hl",
+  "reference_bundle": "/private/tmp/ocm-fleet-fm124-v2.tvdbmukb",
+  "model": "gpt-6-luna",
+  "reasoning_effort": "max",
+  "codex_home": "/Users/ahenning/.codex-work",
+  "cli_version": "codex-cli 0.164.0",
+  "comparison_validation": {
+    "reference_bundle": "/private/tmp/ocm-fleet-fm124-v2.tvdbmukb",
+    "reference_snapshot": "startup/G1S1/initial-input.json",
+    "normalized_inputs_match_frozen_lean_snapshot": true,
+    "additional_normalization": "environment current_date 2026-10-23 -> 2026-10-26",
+    "frozen_acceptance_checks_identical": true
+  },
+  "usage_excludes_parent_setup_and_assessment": true,
+  "runs": [
+    {
+      "name": "treatment-1",
+      "thread_id": "01a17976-27d2-7610-9aa2-ebbaf74cbba1",
+      "exit_code": 0,
+      "elapsed_seconds": 1066.67,
+      "actual_model": "gpt-6-luna",
+      "actual_reasoning_effort": "max",
+      "checkpoints": {
+        "run": "treatment-1",
+        "checkpoints": {
+          "initial_request": {
+            "request_number": 1,
+            "input_tokens": 14931,
+            "cached_input_tokens": 0
+          },
+          "before_first_edit": {
+            "request_number": 15,
+            "input_tokens": 79712,
+            "cached_input_tokens": 78339
+          }
+        },
+        "first_edit_status": "reviewed",
+        "input_growth_before_first_edit": 64781,
+        "guidance_reads_before_first_edit": [
+          {
+            "source": "client/cli/AGENTS.md",
+            "call_id": "call_Jdo1pwrqVKgbgrvBnhknArJG",
+            "scope": "complete",
+            "first_included_request": 3
+          },
+          {
+            "source": "client/cli/README.md",
+            "call_id": "call_3FBy9NNPlndnVHSQ1kSZLnHf",
+            "scope": "complete",
+            "first_included_request": 9
+          },
+          {
+            "source": "docs/ui/cli-feature-inventory.md",
+            "call_id": "call_blsVgYtVh3HOgkXyL5MMkX1x",
+            "scope": "excerpt",
+            "first_included_request": 14
+          },
+          {
+            "source": "docs/ui/cli-feature-inventory.md",
+            "call_id": "call_3CBlENJjO6wTdx12UgdEgDIx",
+            "scope": "excerpt",
+            "first_included_request": 15
+          }
+        ],
+        "totals": {
+          "input_tokens": 13020944,
+          "cached_input_tokens": 12807329,
+          "output_tokens": 94894,
+          "reasoning_output_tokens": 65179
+        },
+        "total_input_plus_output_tokens": 13115838,
+        "requests": 110,
+        "compactions_observed": 0,
+        "measurement_note": "Initial input includes all stock context and the task. Growth also includes source, tool results, and assistant history; it is not isolated guidance cost. Cached input is included in input; reasoning is included in output."
+      },
+      "cli_usage_reconciled": true,
+      "largest_request_input_tokens": 213288,
+      "completed_items_by_type": {
+        "agent_message": 7,
+        "command_execution": 65,
+        "file_change": 50
+      },
+      "shell_commands": 65,
+      "nonzero_shell_commands": 13,
+      "patch_sha256": "94be95f6de58f817aeb489ea31c9641c2e2dc3fca9980646fc2f305b07dcc05c",
+      "independent_assessment": {
+        "cli_exit_code": 0,
+        "stream_exit_code": 0,
+        "subject_source_unchanged": true,
+        "patch_sha256": "94be95f6de58f817aeb489ea31c9641c2e2dc3fca9980646fc2f305b07dcc05c"
+      },
+      "validation": {
+        "cli_tests_passed": 36,
+        "typecheck": "passed",
+        "lint": "passed",
+        "build": "passed",
+        "e2e_support_tests_passed": 4,
+        "full_e2e_suite": {
+          "passed": 164,
+          "failed": 3,
+          "failure": "HTTPS fixture listen EPERM on 127.0.0.1 in subject sandbox"
+        },
+        "independent_executable_cases_passed": 7,
+        "independent_stream_cases_passed": 4,
+        "patch_applies_to_historical_baseline": true
+      },
+      "confirmed_skill_body_reads": [],
+      "source_review_findings": []
+    },
+    {
+      "name": "treatment-2",
+      "thread_id": "01a17976-27d2-74a1-b1e9-39bbaaa31a68",
+      "exit_code": 0,
+      "elapsed_seconds": 872.006,
+      "actual_model": "gpt-6-luna",
+      "actual_reasoning_effort": "max",
+      "checkpoints": {
+        "run": "treatment-2",
+        "checkpoints": {
+          "initial_request": {
+            "request_number": 1,
+            "input_tokens": 14931,
+            "cached_input_tokens": 0
+          },
+          "before_first_edit": {
+            "request_number": 11,
+            "input_tokens": 76631,
+            "cached_input_tokens": 74933
+          }
+        },
+        "first_edit_status": "reviewed",
+        "input_growth_before_first_edit": 61700,
+        "guidance_reads_before_first_edit": [
+          {
+            "source": "docs/ui/AGENTS.md",
+            "call_id": "call_ikeK67TiAXp7H1nA43AYKIY3",
+            "scope": "complete",
+            "first_included_request": 2
+          },
+          {
+            "source": "client/cli/AGENTS.md",
+            "call_id": "call_aIrdjo0oMFnhn2qQukXIbWrM",
+            "scope": "complete",
+            "first_included_request": 3
+          },
+          {
+            "source": "client/cli/README.md",
+            "call_id": "call_OFLfG4SKnVwWUjSn3G6GBQ5e",
+            "scope": "complete",
+            "first_included_request": 6
+          }
+        ],
+        "totals": {
+          "input_tokens": 9195070,
+          "cached_input_tokens": 9008508,
+          "output_tokens": 87863,
+          "reasoning_output_tokens": 56484
+        },
+        "total_input_plus_output_tokens": 9282933,
+        "requests": 74,
+        "compactions_observed": 0,
+        "measurement_note": "Initial input includes all stock context and the task. Growth also includes source, tool results, and assistant history; it is not isolated guidance cost. Cached input is included in input; reasoning is included in output."
+      },
+      "cli_usage_reconciled": true,
+      "largest_request_input_tokens": 186343,
+      "completed_items_by_type": {
+        "agent_message": 7,
+        "command_execution": 110,
+        "file_change": 24
+      },
+      "shell_commands": 110,
+      "nonzero_shell_commands": 8,
+      "patch_sha256": "9a885e01cdb1f810edf94e4eacabba0e5642d95d46b315cf831963d36f449f69",
+      "independent_assessment": {
+        "cli_exit_code": 0,
+        "stream_exit_code": 0,
+        "subject_source_unchanged": true,
+        "patch_sha256": "9a885e01cdb1f810edf94e4eacabba0e5642d95d46b315cf831963d36f449f69"
+      },
+      "validation": {
+        "cli_tests_passed": 35,
+        "typecheck": "passed",
+        "lint": "passed",
+        "build": "passed",
+        "independent_executable_cases_passed": 7,
+        "independent_stream_cases_passed": 4,
+        "patch_applies_to_historical_baseline": true
+      },
+      "confirmed_skill_body_reads": [],
+      "source_review_findings": [
+        {
+          "severity": "regression",
+          "area": "browser-login E2E helper",
+          "evidence": "src/auth/login.ts writes AUTH_URL to stderr; e2e/cli/tests/support/fleetctl.ts still reads child.stdout",
+          "validation": "source review; live authentication not exercised"
+        }
+      ]
+    }
+  ],
+  "cohort_comparison": {
+    "samples_per_cohort": 2,
+    "initial_input_tokens": {
+      "control_mean": 15827,
+      "treatment_mean": 14931,
+      "difference": -896,
+      "percent_change": -5.6612118531623175
+    },
+    "before_first_edit_input_tokens": {
+      "control_mean": 76742.5,
+      "treatment_mean": 78171.5,
+      "difference": 1429.0,
+      "percent_change": 1.8620712121705685
+    },
+    "total_input_plus_output": {
+      "control_sum": 23399541,
+      "treatment_sum": 22398771,
+      "percent_change": -4.276878764416791
+    },
+    "elapsed_seconds": {
+      "control_mean": 883.0740000000001,
+      "treatment_mean": 969.338,
+      "percent_change": 9.768603763670992
+    },
+    "input_minus_cached": {
+      "control_sum": 403365,
+      "treatment_sum": 400177,
+      "percent_change": -0.7903511707758493
+    }
+  },
+  "limitations": [
+    "Two runs per cohort; implementation/retrieval/validation variation prevents a reliable total-cost or speed conclusion",
+    "Checkout paths and environment date differ between cohorts; normalized initial messages/tools otherwise match the intended change",
+    "Observed startup reduction is a whole-request difference, not an exact isolated guidance-component token count",
+    "Concurrent runs share provider caching; cached input is included in total input, so accumulated tokens are not context size or dollar cost",
+    "No live authentication, gRPC reflection, or management backend exercised; targeted checks are not exhaustive",
+    "No subjects resumed, repaired, coached, or shown assessment results"
+  ],
+  "guidance_commit": "53e497b"
+}
