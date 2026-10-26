@@ -16,6 +16,7 @@ import subprocess
 import time
 
 from context_usage import analyze, checkpoint_summary
+from tool_statistics import summarize
 
 
 BASE = "775b87ed75af7dc1977240f6a220183504cd055d"
@@ -201,6 +202,7 @@ def capture(args):
         analysis = analyze(records, entry["name"])
         (artifact / "context-usage.json").write_text(json.dumps(analysis, indent=2) + "\n")
         (artifact / "checkpoints.json").write_text(json.dumps(checkpoint_summary(analysis), indent=2) + "\n")
+        (artifact / "tool-statistics.json").write_text(json.dumps(summarize(records, analysis), indent=2) + "\n")
         print("Completed", entry["name"], metadata["exit_code"], analysis["totals"], flush=True)
     executor.shutdown()
 

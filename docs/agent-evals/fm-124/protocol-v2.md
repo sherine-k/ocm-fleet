@@ -76,7 +76,8 @@ section is transplanted onto the historical root guide; the seven Nx skills,
 their Claude/Cursor links, lockfile, and Nx-only Claude plugin settings are
 removed. Nested guides and application source stay at the historical baseline.
 
-`capture` launches two model sessions and emits unreviewed checkpoint summaries.
+`capture` launches two model sessions and emits unreviewed checkpoint summaries
+and mechanical `tool-statistics.json` activity counts.
 Review their transcripts, then regenerate the primary summary with annotations:
 
 ```sh
@@ -86,9 +87,35 @@ PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover \
   -s docs/agent-evals/fm-124/harness -p 'test_*.py'
 ```
 
-Analysis uses only Python's standard library and makes no model/network calls.
+Log analysis uses only Python's standard library and makes no model/network calls.
 It writes `checkpoints.json` plus supporting `context-usage.json` and CSV,
 checking unique responses and reconciliation of per-request and final usage.
+
+## Mechanical activity and failure counts
+
+Keep the two context checkpoints as the primary measurement. As supporting
+metrics, [tool_statistics.py](harness/tool_statistics.py) counts model tool calls,
+actual shell executions, recognized skill reads, and nonzero command exits,
+both overall and before the first recorded edit's enclosing tool call. It also
+preserves tool-name/exit-code breakdowns and event IDs. No review annotations or
+model classification feed these counts. An absent/ambiguous edit boundary stays
+null; arbitrary shell writes are not detected. Skill reads are observable
+retrievals, not proof of semantic use. Nonzero exits include iterative failures
+and searches without matches, so they are not remaining-defect counts.
+
+```sh
+python3 docs/agent-evals/fm-124/harness/tool_statistics.py "$rollout" \
+  --run "$name" --assessment "$assessment_directory" --output "$statistics_json"
+SUBJECT="$checkout_with_dependencies" node --test \
+  docs/agent-evals/fm-124/harness/test_login_stream_contract.mjs
+```
+
+The optional assessment input mechanically parses explicit unittest/Vitest
+totals and preserves job exits. Untested behavior has no measured pass/fail
+result. A supplemental static login-stream contract check was added after the
+four v2 runs; keep that result separate from frozen acceptance. See the
+[activity comparison](activity-v2-2026-10-26.md) for all four runs, exact counting
+definitions, limitations, and the supplemental check command.
 
 ## Correctness and current state
 

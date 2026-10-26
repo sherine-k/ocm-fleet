@@ -1,0 +1,477 @@
+{
+  "method": "Mechanical replay of frozen run and assessment logs; no model calls or source review.",
+  "definitions": {
+    "tool_calls": "Model-issued tool calls, grouped by name; nested shell executions are separate, not added to this total.",
+    "shell_commands": "Actual completed CommandExecution events, once per ID; includes compound scripts, excludes polling calls and unobserved child processes.",
+    "recognized_skill_reads": "Successful nonempty commands with a logger-classified read path ending in SKILL.md, once per skill per command. This is retrieval, not proof of semantic use; unclassified/indirect reads can be missed.",
+    "commands_by_logged_kind": "Logger classifications, once per kind per shell command; categories may overlap and unknown is retained.",
+    "before_first_edit": "Excludes the entire tool call enclosing the first successful FileChange event, including same-call reads. Shell-based writes are not detected. Missing/ambiguous boundaries are null.",
+    "nonzero_shell_exits": "Observed nonzero exits, including intentional test failures and searches without matches; not a count of defects remaining."
+  },
+  "raw_statistics_directory": "/private/tmp/ocm-fleet-fm124-statistics-qcrh44m3",
+  "runs": [
+    {
+      "run": "control-1",
+      "first_recorded_edit": {
+        "event_id": "exec-5b819fa6-a7d2-4596-a6d1-9fe2c9f4a7af",
+        "record_number": 188,
+        "status": "recorded FileChange",
+        "call_id": "call_EoajHW7qiwrmAhxDy7OJtNHE",
+        "request_number": 7
+      },
+      "overall": {
+        "tool_calls": 110,
+        "tool_calls_by_name": {
+          "exec": 110
+        },
+        "shell_commands": 78,
+        "shell_exit_codes": {
+          "0": 68,
+          "1": 10
+        },
+        "nonzero_shell_exits": 10,
+        "unknown_shell_exits": 0,
+        "commands_by_logged_kind": {
+          "list_files": 3,
+          "read": 14,
+          "search": 7,
+          "unknown": 55
+        },
+        "recognized_skill_reads": 1,
+        "skill_reads_by_name": {
+          "nx-workspace": 1
+        },
+        "file_change_events": 51,
+        "file_change_events_by_status": {
+          "completed": 51
+        }
+      },
+      "before_first_edit": {
+        "tool_calls": 6,
+        "tool_calls_by_name": {
+          "exec": 6
+        },
+        "shell_commands": 24,
+        "shell_exit_codes": {
+          "0": 24
+        },
+        "nonzero_shell_exits": 0,
+        "unknown_shell_exits": 0,
+        "commands_by_logged_kind": {
+          "list_files": 3,
+          "read": 8,
+          "search": 2,
+          "unknown": 12
+        },
+        "recognized_skill_reads": 1,
+        "skill_reads_by_name": {
+          "nx-workspace": 1
+        },
+        "file_change_events": 0,
+        "file_change_events_by_status": {}
+      },
+      "assessment": {
+        "jobs": {
+          "built_cli": {
+            "total": 7,
+            "failed_or_error": 0,
+            "skipped": 0,
+            "exit_code": 0
+          },
+          "writable": {
+            "total": 4,
+            "failed_or_error": 0,
+            "skipped": 0,
+            "exit_code": 0
+          }
+        },
+        "total": 11,
+        "failed_or_error": 0,
+        "skipped": 0,
+        "nonzero_job_exits": 0,
+        "scope": "Only the checks present in these logs; no inference about untested behavior."
+      },
+      "sources": {
+        "rollout": {
+          "path": "/private/tmp/ocm-fleet-fm124-v2.tvdbmukb/artifacts/control-1/rollout.jsonl",
+          "sha256": "fb6cd8b2b663a39aed12a08ca5743a33a82219bb76d29e9ba81cfecb35ec5eba"
+        },
+        "result.json": {
+          "path": "/private/tmp/ocm-fleet-fm124-v2.tvdbmukb/assessment/control-1/result.json",
+          "sha256": "57ae37b333969ac0398f06c34cf0ed2fea7a19eec0977f2c9904e5c901c25b55"
+        },
+        "cli.log": {
+          "path": "/private/tmp/ocm-fleet-fm124-v2.tvdbmukb/assessment/control-1/cli.log",
+          "sha256": "6d20a5ea148ad27f3de8b592270cdc5f1c0f47057f4836e92e489297704dcd9c"
+        },
+        "stream.log": {
+          "path": "/private/tmp/ocm-fleet-fm124-v2.tvdbmukb/assessment/control-1/stream.log",
+          "sha256": "966da2aa8613a14614f4435892fa0d1402677f88f708f0e69ea8ff323892bfdb"
+        }
+      },
+      "supplemental_login_check": {
+        "check": "login_stream_contract",
+        "method": "supplemental_static_check",
+        "outcome": "failed",
+        "emitted_streams": [
+          "stderr"
+        ],
+        "helper_streams": [
+          "stdout"
+        ],
+        "exit_code": 1,
+        "sources": {
+          "/private/tmp/ocm-fleet-fm-124/docs/agent-evals/fm-124/harness/login_stream_contract.mjs": "2a896211f90f03f60ebddc64c6913ca5c1416c46b7325e9b22e2a2cb6f74be08",
+          "/private/tmp/ocm-fleet-fm124-v2.tvdbmukb/control-1/client/cli/src/auth/login.ts": "4b5af5458514f87a0a7a738343d3231249723ab722975acc51ac3d817f1cf415",
+          "/private/tmp/ocm-fleet-fm124-v2.tvdbmukb/control-1/e2e/cli/tests/support/fleetctl.ts": "17054e78d30e2c3b6077644fcab851adffb6941d7daedd9646c5f95e5376a457"
+        }
+      }
+    },
+    {
+      "run": "control-2",
+      "first_recorded_edit": {
+        "event_id": "exec-0e78f4c3-6eb9-4e74-80ba-ca8611b1d23d",
+        "record_number": 214,
+        "status": "recorded FileChange",
+        "call_id": "call_qQJlrBpl1lMqnRxame12SKEa",
+        "request_number": 11
+      },
+      "overall": {
+        "tool_calls": 69,
+        "tool_calls_by_name": {
+          "exec": 69
+        },
+        "shell_commands": 72,
+        "shell_exit_codes": {
+          "0": 63,
+          "1": 8,
+          "127": 1
+        },
+        "nonzero_shell_exits": 9,
+        "unknown_shell_exits": 0,
+        "commands_by_logged_kind": {
+          "list_files": 2,
+          "read": 20,
+          "search": 10,
+          "unknown": 46
+        },
+        "recognized_skill_reads": 1,
+        "skill_reads_by_name": {
+          "nx-workspace": 1
+        },
+        "file_change_events": 26,
+        "file_change_events_by_status": {
+          "completed": 26
+        }
+      },
+      "before_first_edit": {
+        "tool_calls": 10,
+        "tool_calls_by_name": {
+          "exec": 10
+        },
+        "shell_commands": 22,
+        "shell_exit_codes": {
+          "0": 21,
+          "127": 1
+        },
+        "nonzero_shell_exits": 1,
+        "unknown_shell_exits": 0,
+        "commands_by_logged_kind": {
+          "list_files": 2,
+          "read": 11,
+          "search": 5,
+          "unknown": 9
+        },
+        "recognized_skill_reads": 1,
+        "skill_reads_by_name": {
+          "nx-workspace": 1
+        },
+        "file_change_events": 0,
+        "file_change_events_by_status": {}
+      },
+      "assessment": {
+        "jobs": {
+          "built_cli": {
+            "total": 7,
+            "failed_or_error": 0,
+            "skipped": 0,
+            "exit_code": 0
+          },
+          "writable": {
+            "total": 4,
+            "failed_or_error": 0,
+            "skipped": 0,
+            "exit_code": 0
+          }
+        },
+        "total": 11,
+        "failed_or_error": 0,
+        "skipped": 0,
+        "nonzero_job_exits": 0,
+        "scope": "Only the checks present in these logs; no inference about untested behavior."
+      },
+      "sources": {
+        "rollout": {
+          "path": "/private/tmp/ocm-fleet-fm124-v2.tvdbmukb/artifacts/control-2/rollout.jsonl",
+          "sha256": "e1edd0ac708075ddd1b4098891263c6b931b585f08b1da960a426ecad557b5ad"
+        },
+        "result.json": {
+          "path": "/private/tmp/ocm-fleet-fm124-v2.tvdbmukb/assessment/control-2/result.json",
+          "sha256": "476d781bef77ed5a6b17ae5d6eb5cfcd95fcfb5db5beb1e26a92ad4cb386967c"
+        },
+        "cli.log": {
+          "path": "/private/tmp/ocm-fleet-fm124-v2.tvdbmukb/assessment/control-2/cli.log",
+          "sha256": "fdd2ca5afa5c1d2b4c47b83a40fb8d775dd38eb71eea0da9c468f5635ab62ec5"
+        },
+        "stream.log": {
+          "path": "/private/tmp/ocm-fleet-fm124-v2.tvdbmukb/assessment/control-2/stream.log",
+          "sha256": "39eb8b20f01dbce01357f2ec409b1bbb87c2500326d138efca5dbbd81cf89728"
+        }
+      },
+      "supplemental_login_check": {
+        "check": "login_stream_contract",
+        "method": "supplemental_static_check",
+        "outcome": "passed",
+        "emitted_streams": [
+          "stderr"
+        ],
+        "helper_streams": [
+          "stderr"
+        ],
+        "exit_code": 0,
+        "sources": {
+          "/private/tmp/ocm-fleet-fm-124/docs/agent-evals/fm-124/harness/login_stream_contract.mjs": "2a896211f90f03f60ebddc64c6913ca5c1416c46b7325e9b22e2a2cb6f74be08",
+          "/private/tmp/ocm-fleet-fm124-v2.tvdbmukb/control-2/client/cli/src/auth/login.ts": "ad633b97d66c796d2333edbdd5cfebda5b79f82cea71df4ca2a6a4d7726ef092",
+          "/private/tmp/ocm-fleet-fm124-v2.tvdbmukb/control-2/e2e/cli/tests/support/fleetctl.ts": "bb5f613d4028423b4bb20e06b154c40618a7fe313d72721686a0b6f6027c6556"
+        }
+      }
+    },
+    {
+      "run": "treatment-1",
+      "first_recorded_edit": {
+        "event_id": "exec-2d0d71d8-61f8-417b-a2e2-d8bebb80d6e8",
+        "record_number": 216,
+        "status": "recorded FileChange",
+        "call_id": "call_e5d0T8GWo6lpEBcT3TspcErJ",
+        "request_number": 15
+      },
+      "overall": {
+        "tool_calls": 109,
+        "tool_calls_by_name": {
+          "exec": 109
+        },
+        "shell_commands": 65,
+        "shell_exit_codes": {
+          "0": 52,
+          "1": 12,
+          "2": 1
+        },
+        "nonzero_shell_exits": 13,
+        "unknown_shell_exits": 0,
+        "commands_by_logged_kind": {
+          "list_files": 1,
+          "read": 17,
+          "search": 7,
+          "unknown": 44
+        },
+        "recognized_skill_reads": 0,
+        "skill_reads_by_name": {},
+        "file_change_events": 50,
+        "file_change_events_by_status": {
+          "completed": 50
+        }
+      },
+      "before_first_edit": {
+        "tool_calls": 14,
+        "tool_calls_by_name": {
+          "exec": 14
+        },
+        "shell_commands": 14,
+        "shell_exit_codes": {
+          "0": 14
+        },
+        "nonzero_shell_exits": 0,
+        "unknown_shell_exits": 0,
+        "commands_by_logged_kind": {
+          "list_files": 1,
+          "read": 9,
+          "search": 4,
+          "unknown": 3
+        },
+        "recognized_skill_reads": 0,
+        "skill_reads_by_name": {},
+        "file_change_events": 0,
+        "file_change_events_by_status": {}
+      },
+      "assessment": {
+        "jobs": {
+          "built_cli": {
+            "total": 7,
+            "failed_or_error": 0,
+            "skipped": 0,
+            "exit_code": 0
+          },
+          "writable": {
+            "total": 4,
+            "failed_or_error": 0,
+            "skipped": 0,
+            "exit_code": 0
+          }
+        },
+        "total": 11,
+        "failed_or_error": 0,
+        "skipped": 0,
+        "nonzero_job_exits": 0,
+        "scope": "Only the checks present in these logs; no inference about untested behavior."
+      },
+      "sources": {
+        "rollout": {
+          "path": "/private/tmp/ocm-fleet-fm124-treatment-v2.0rz45_hl/artifacts/treatment-1/rollout.jsonl",
+          "sha256": "5abd5901032d232019c57fd91a04c04497cc99776cb2974a81a36083ec0f4942"
+        },
+        "result.json": {
+          "path": "/private/tmp/ocm-fleet-fm124-treatment-v2.0rz45_hl/assessment/treatment-1/result.json",
+          "sha256": "ad32999af603685c9528cf3e75998a3a104b6214df7a9aa3c3e624d1b2cf731d"
+        },
+        "cli.log": {
+          "path": "/private/tmp/ocm-fleet-fm124-treatment-v2.0rz45_hl/assessment/treatment-1/cli.log",
+          "sha256": "d614879e6b13390188f2be9604ff2ba97c454b87e380a229e69dbcbf561d18cd"
+        },
+        "stream.log": {
+          "path": "/private/tmp/ocm-fleet-fm124-treatment-v2.0rz45_hl/assessment/treatment-1/stream.log",
+          "sha256": "12d9d8fdf7ff7d4b738cb2abccbb29354f72c49684e64eb9d8404a06aa4ee33b"
+        }
+      },
+      "supplemental_login_check": {
+        "check": "login_stream_contract",
+        "method": "supplemental_static_check",
+        "outcome": "passed",
+        "emitted_streams": [
+          "stderr"
+        ],
+        "helper_streams": [
+          "stderr"
+        ],
+        "exit_code": 0,
+        "sources": {
+          "/private/tmp/ocm-fleet-fm-124/docs/agent-evals/fm-124/harness/login_stream_contract.mjs": "2a896211f90f03f60ebddc64c6913ca5c1416c46b7325e9b22e2a2cb6f74be08",
+          "/private/tmp/ocm-fleet-fm124-treatment-v2.0rz45_hl/treatment-1/client/cli/src/auth/login.ts": "dabe2cb126a60ec7fb64450e765af42fd415c86e5524b5e407cf79312c5da121",
+          "/private/tmp/ocm-fleet-fm124-treatment-v2.0rz45_hl/treatment-1/e2e/cli/tests/support/fleetctl.ts": "b8942edc2ec43c34b1276ae55f1989190a42c44815d5b3c8ad13eb1f46818a61"
+        }
+      }
+    },
+    {
+      "run": "treatment-2",
+      "first_recorded_edit": {
+        "event_id": "exec-209e55dc-a8a5-49a7-8673-d64a62721990",
+        "record_number": 239,
+        "status": "recorded FileChange",
+        "call_id": "call_gkXa1zvAW6c8u39AwVun9BYO",
+        "request_number": 11
+      },
+      "overall": {
+        "tool_calls": 73,
+        "tool_calls_by_name": {
+          "exec": 73
+        },
+        "shell_commands": 110,
+        "shell_exit_codes": {
+          "0": 102,
+          "1": 8
+        },
+        "nonzero_shell_exits": 8,
+        "unknown_shell_exits": 0,
+        "commands_by_logged_kind": {
+          "list_files": 1,
+          "read": 57,
+          "search": 8,
+          "unknown": 45
+        },
+        "recognized_skill_reads": 0,
+        "skill_reads_by_name": {},
+        "file_change_events": 24,
+        "file_change_events_by_status": {
+          "completed": 24
+        }
+      },
+      "before_first_edit": {
+        "tool_calls": 10,
+        "tool_calls_by_name": {
+          "exec": 10
+        },
+        "shell_commands": 57,
+        "shell_exit_codes": {
+          "0": 57
+        },
+        "nonzero_shell_exits": 0,
+        "unknown_shell_exits": 0,
+        "commands_by_logged_kind": {
+          "read": 51,
+          "search": 4,
+          "unknown": 2
+        },
+        "recognized_skill_reads": 0,
+        "skill_reads_by_name": {},
+        "file_change_events": 0,
+        "file_change_events_by_status": {}
+      },
+      "assessment": {
+        "jobs": {
+          "built_cli": {
+            "total": 7,
+            "failed_or_error": 0,
+            "skipped": 0,
+            "exit_code": 0
+          },
+          "writable": {
+            "total": 4,
+            "failed_or_error": 0,
+            "skipped": 0,
+            "exit_code": 0
+          }
+        },
+        "total": 11,
+        "failed_or_error": 0,
+        "skipped": 0,
+        "nonzero_job_exits": 0,
+        "scope": "Only the checks present in these logs; no inference about untested behavior."
+      },
+      "sources": {
+        "rollout": {
+          "path": "/private/tmp/ocm-fleet-fm124-treatment-v2.0rz45_hl/artifacts/treatment-2/rollout.jsonl",
+          "sha256": "675c3d8e2ed63508fd93ba64a2696b841063026a63931d05dddb12cf8c5eb275"
+        },
+        "result.json": {
+          "path": "/private/tmp/ocm-fleet-fm124-treatment-v2.0rz45_hl/assessment/treatment-2/result.json",
+          "sha256": "b3d1bf1346ecb15803d9dc512e5db36306b0f0747d32f593045dda5b2b730767"
+        },
+        "cli.log": {
+          "path": "/private/tmp/ocm-fleet-fm124-treatment-v2.0rz45_hl/assessment/treatment-2/cli.log",
+          "sha256": "4e0e8500ed6f267b3b510e0744659052112174a5115bedeb96b5033e44d37c04"
+        },
+        "stream.log": {
+          "path": "/private/tmp/ocm-fleet-fm124-treatment-v2.0rz45_hl/assessment/treatment-2/stream.log",
+          "sha256": "1a2f31f8af010bd29aacb9fa5225a086e359366419cce2a32402fb3c10643053"
+        }
+      },
+      "supplemental_login_check": {
+        "check": "login_stream_contract",
+        "method": "supplemental_static_check",
+        "outcome": "failed",
+        "emitted_streams": [
+          "stderr"
+        ],
+        "helper_streams": [
+          "stdout"
+        ],
+        "exit_code": 1,
+        "sources": {
+          "/private/tmp/ocm-fleet-fm-124/docs/agent-evals/fm-124/harness/login_stream_contract.mjs": "2a896211f90f03f60ebddc64c6913ca5c1416c46b7325e9b22e2a2cb6f74be08",
+          "/private/tmp/ocm-fleet-fm124-treatment-v2.0rz45_hl/treatment-2/client/cli/src/auth/login.ts": "e41e263c4b9951cd8432343c598bff1d58d757aef2a645ab9e1f385f28a64cbe",
+          "/private/tmp/ocm-fleet-fm124-treatment-v2.0rz45_hl/treatment-2/e2e/cli/tests/support/fleetctl.ts": "17054e78d30e2c3b6077644fcab851adffb6941d7daedd9646c5f95e5376a457"
+        }
+      }
+    }
+  ],
+  "supplemental_check_note": "Post-hoc static direct-stream wiring check, not part of frozen 11-case acceptance; no browser login exercised. Identical checker run against all four completed subjects without modifying them."
+}
