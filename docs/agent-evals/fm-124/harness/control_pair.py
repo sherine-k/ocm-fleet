@@ -91,6 +91,25 @@ def apply_lean_guidance(checkout, lean):
     lock.unlink(missing_ok=True)
 
 
+def apply_guidance_tree(checkout, source):
+    """Overlay tracked agent guides, preserving historical application/config files."""
+    paths = run(["git", "-C", str(source), "ls-files", "-z", "--",
+                 "AGENTS.md", "**/AGENTS.md"], capture_output=True).stdout.decode().split("\0")
+    guides = {name: (source / name).read_bytes() for name in paths if name}
+    if "AGENTS.md" not in guides:
+        raise ValueError("Current guidance must include a tracked root AGENTS.md")
+    # Retain the earlier treatment's removal of Nx skills and plugin installation.
+    apply_lean_guidance(checkout, guides["AGENTS.md"].decode())
+    for path in checkout.rglob("AGENTS.md"):
+        if "node_modules" not in path.parts and str(path.relative_to(checkout)) not in guides:
+            path.unlink()
+    for name, contents in guides.items():
+        path = checkout / name
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_bytes(contents)
+    return {name: hashlib.sha256(contents).hexdigest() for name, contents in guides.items()}
+
+
 def prepare(args):
     bundle = args.bundle.resolve()
     bundle.mkdir(parents=True, exist_ok=True)
@@ -99,23 +118,34 @@ def prepare(args):
     archive = bundle / "baseline.tar"
     with archive.open("wb") as output:
         run(["git", "-C", str(args.source), "archive", BASE], stdout=output)
-    treatment = args.lean_agents is not None
+    current = args.guidance_from is not None
+    treatment = args.lean_agents is not None or current
+    prefix = "revised" if current else "treatment" if treatment else "control"
     manifest = {
-        "kind": "duplicate-lean-guidance-treatments-v2" if treatment else "duplicate-original-guidance-controls-v2", "source_commit": BASE,
+        "kind": "duplicate-current-guidance-treatments-v2" if current else "duplicate-lean-guidance-treatments-v2" if treatment else "duplicate-original-guidance-controls-v2", "source_commit": BASE,
         "archive_sha256": sha(archive), "prompt_sha256": sha(bundle / "prompt.txt"),
         "model": "gpt-6-luna", "reasoning_effort": "max", "codex_home": str(PROFILE),
         "cli_version": run(["codex", "--version"], capture_output=True, text=True).stdout.strip(),
         "context_measurement": "Initial request and input before first edit; provider-reported tokens",
         "runs": [],
     }
-    if treatment:
+    if current:
+        manifest["guidance_source"] = str(args.guidance_from.resolve())
+        manifest["guidance_commit"] = run(["git", "-C", str(args.guidance_from), "rev-parse", "HEAD"],
+                                          capture_output=True, text=True).stdout.strip()
+    elif treatment:
         manifest["lean_agents_sha256"] = sha(args.lean_agents)
     prompt = (bundle / "prompt.txt").read_text()
-    for name in (f"{'treatment' if treatment else 'control'}-{number}" for number in (1, 2)):
+    for name in (f"{prefix}-{number}" for number in (1, 2)):
         checkout = bundle / name
         checkout.mkdir()
         run(["tar", "-xf", str(archive), "-C", str(checkout)])
-        if treatment:
+        if current:
+            hashes = apply_guidance_tree(checkout, args.guidance_from)
+            if "current_guidance_sha256" in manifest:
+                assert hashes == manifest["current_guidance_sha256"], "Guidance changed during preparation"
+            manifest["current_guidance_sha256"] = hashes
+        elif treatment:
             apply_lean_guidance(checkout, args.lean_agents.read_text())
         run(["git", "init", "-q"], cwd=checkout)
         run(["git", "add", "."], cwd=checkout)
@@ -213,7 +243,9 @@ def main():
     parser.add_argument("--bundle", type=Path, required=True)
     parser.add_argument("--source", type=Path)
     parser.add_argument("--prompt", type=Path)
-    parser.add_argument("--lean-agents", type=Path, help="Prepare lean-guidance treatments instead of controls")
+    guidance = parser.add_mutually_exclusive_group()
+    guidance.add_argument("--lean-agents", type=Path, help="Prepare lean-guidance treatments instead of controls")
+    guidance.add_argument("--guidance-from", type=Path, help="Overlay all tracked AGENTS.md files from this repository; preserve historical source/config")
     args = parser.parse_args()
     (prepare if args.action == "prepare" else capture)(args)
 

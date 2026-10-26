@@ -13,7 +13,8 @@
     "recognized_skill_reads": "Successful nonempty commands with a logger-classified read path ending in SKILL.md, once per skill per command. This is retrieval, not proof of semantic use; unclassified/indirect reads can be missed.",
     "commands_by_logged_kind": "Logger classifications, once per kind per shell command; categories may overlap and unknown is retained.",
     "before_first_edit": "Excludes the entire tool call enclosing the first successful FileChange event, including same-call reads. Shell-based writes are not detected. Missing/ambiguous boundaries are null.",
-    "nonzero_shell_exits": "Observed nonzero exits, including intentional test failures and searches without matches; not a count of defects remaining."
+    "nonzero_shell_exits": "Observed nonzero exits, including intentional test failures and searches without matches; not a count of defects remaining.",
+    "additional_e2e_test_runs": "Actual logged npx nx run e2e-cli:test commands and pinned Vitest summary counts. Empty means not run; absent summaries stay null. contains_eperm_text is a literal log marker, not a cause classification. These runs are outside the frozen 11-case assessment."
   },
   "raw_statistics_directory": "/private/tmp/ocm-fleet-fm124-statistics-qcrh44m3",
   "runs": [
@@ -168,7 +169,9 @@
         "events.jsonl": "/private/tmp/ocm-fleet-fm124-v2.tvdbmukb/artifacts/control-1/events.jsonl",
         "changes.patch": "/private/tmp/ocm-fleet-fm124-v2.tvdbmukb/artifacts/control-1/changes.patch",
         "final.md": "/private/tmp/ocm-fleet-fm124-v2.tvdbmukb/artifacts/control-1/final.md"
-      }
+      },
+      "cohort": "original-guidance",
+      "additional_e2e_test_runs": []
     },
     {
       "run": "control-2",
@@ -323,7 +326,9 @@
         "events.jsonl": "/private/tmp/ocm-fleet-fm124-v2.tvdbmukb/artifacts/control-2/events.jsonl",
         "changes.patch": "/private/tmp/ocm-fleet-fm124-v2.tvdbmukb/artifacts/control-2/changes.patch",
         "final.md": "/private/tmp/ocm-fleet-fm124-v2.tvdbmukb/artifacts/control-2/final.md"
-      }
+      },
+      "cohort": "original-guidance",
+      "additional_e2e_test_runs": []
     },
     {
       "run": "treatment-1",
@@ -473,7 +478,41 @@
         "events.jsonl": "/private/tmp/ocm-fleet-fm124-treatment-v2.0rz45_hl/artifacts/treatment-1/events.jsonl",
         "changes.patch": "/private/tmp/ocm-fleet-fm124-treatment-v2.0rz45_hl/artifacts/treatment-1/changes.patch",
         "final.md": "/private/tmp/ocm-fleet-fm124-treatment-v2.0rz45_hl/artifacts/treatment-1/final.md"
-      }
+      },
+      "cohort": "lean-nx-guidance",
+      "additional_e2e_test_runs": [
+        {
+          "event_id": "exec-b15b6aeb-70e7-40f5-b94a-38e0eeae36c1",
+          "command": "npx nx run e2e-cli:test",
+          "exit_code": 1,
+          "test_totals": {
+            "total": 167,
+            "failed": 3,
+            "passed": 164
+          },
+          "contains_eperm_text": true
+        },
+        {
+          "event_id": "exec-61bd9aff-63d8-493f-aa55-97d300e95dea",
+          "command": "npx nx run e2e-cli:test -- tests/support/fleetctl.test.ts",
+          "exit_code": 0,
+          "test_totals": {
+            "total": 4,
+            "passed": 4
+          },
+          "contains_eperm_text": false
+        },
+        {
+          "event_id": "exec-fc1c31d6-fe87-4b75-9a4d-1de98c3e1d4e",
+          "command": "npx nx run e2e-cli:test -- tests/support/fleetctl.test.ts",
+          "exit_code": 0,
+          "test_totals": {
+            "total": 4,
+            "passed": 4
+          },
+          "contains_eperm_text": false
+        }
+      ]
     },
     {
       "run": "treatment-2",
@@ -621,8 +660,439 @@
         "events.jsonl": "/private/tmp/ocm-fleet-fm124-treatment-v2.0rz45_hl/artifacts/treatment-2/events.jsonl",
         "changes.patch": "/private/tmp/ocm-fleet-fm124-treatment-v2.0rz45_hl/artifacts/treatment-2/changes.patch",
         "final.md": "/private/tmp/ocm-fleet-fm124-treatment-v2.0rz45_hl/artifacts/treatment-2/final.md"
-      }
+      },
+      "cohort": "lean-nx-guidance",
+      "additional_e2e_test_runs": []
+    },
+    {
+      "run": "revised-1",
+      "first_recorded_edit": {
+        "event_id": "exec-a89be918-7e52-4af6-9326-fd5fbadd38d3",
+        "record_number": 168,
+        "status": "recorded FileChange",
+        "call_id": "call_B0CsHCoA0xYSIMxWvYyL8tXR",
+        "request_number": 10
+      },
+      "context": {
+        "checkpoints": {
+          "initial_request": {
+            "request_number": 1,
+            "input_tokens": 14836,
+            "cached_input_tokens": 0
+          },
+          "before_first_edit": {
+            "request_number": 10,
+            "input_tokens": 71877,
+            "cached_input_tokens": 69729
+          }
+        },
+        "totals": {
+          "input_tokens": 15782301,
+          "cached_input_tokens": 15576815,
+          "output_tokens": 92838,
+          "reasoning_output_tokens": 61706
+        },
+        "total_input_plus_output_tokens": 15875139,
+        "requests": 136,
+        "maximum_request_input_tokens": 205081,
+        "compactions_observed": 0
+      },
+      "overall": {
+        "tool_calls": 135,
+        "tool_calls_by_name": {
+          "exec": 135
+        },
+        "shell_commands": 80,
+        "shell_exit_codes": {
+          "0": 69,
+          "1": 10,
+          "2": 1
+        },
+        "nonzero_shell_exits": 11,
+        "unknown_shell_exits": 0,
+        "commands_by_logged_kind": {
+          "read": 23,
+          "search": 10,
+          "unknown": 50
+        },
+        "recognized_skill_reads": 0,
+        "skill_reads_by_name": {},
+        "file_change_events": 75,
+        "file_change_events_by_status": {
+          "completed": 75
+        }
+      },
+      "before_first_edit": {
+        "tool_calls": 9,
+        "tool_calls_by_name": {
+          "exec": 9
+        },
+        "shell_commands": 18,
+        "shell_exit_codes": {
+          "0": 18
+        },
+        "nonzero_shell_exits": 0,
+        "unknown_shell_exits": 0,
+        "commands_by_logged_kind": {
+          "read": 7,
+          "search": 2,
+          "unknown": 10
+        },
+        "recognized_skill_reads": 0,
+        "skill_reads_by_name": {},
+        "file_change_events": 0,
+        "file_change_events_by_status": {}
+      },
+      "assessment": {
+        "jobs": {
+          "built_cli": {
+            "total": 7,
+            "failed_or_error": 0,
+            "skipped": 0,
+            "exit_code": 0
+          },
+          "writable": {
+            "total": 4,
+            "failed_or_error": 0,
+            "skipped": 0,
+            "exit_code": 0
+          }
+        },
+        "total": 11,
+        "failed_or_error": 0,
+        "skipped": 0,
+        "nonzero_job_exits": 0,
+        "scope": "Only the checks present in these logs; no inference about untested behavior."
+      },
+      "supplemental_login_check": {
+        "check": "login_stream_contract",
+        "method": "supplemental_static_check",
+        "outcome": "passed",
+        "emitted_streams": [
+          "stderr"
+        ],
+        "helper_streams": [
+          "stderr"
+        ],
+        "exit_code": 0,
+        "sources": {
+          "/private/tmp/ocm-fleet-fm124-revised-v2.z14h4dzu/harness/login_stream_contract.mjs": "2a896211f90f03f60ebddc64c6913ca5c1416c46b7325e9b22e2a2cb6f74be08",
+          "/private/tmp/ocm-fleet-fm124-revised-v2.z14h4dzu/revised-1/client/cli/src/auth/login.ts": "aeb1ca7124f9facd5963a3ca0709dc56a7e618dc4b3247cca936b61eb9d2d443",
+          "/private/tmp/ocm-fleet-fm124-revised-v2.z14h4dzu/revised-1/e2e/cli/tests/support/fleetctl.ts": "e81ce8f06f38d0103d5f6b056f9a474ee8ddfba7f1b5cafb0ee8de5f306a5698"
+        }
+      },
+      "elapsed_seconds": 992.577,
+      "thread_id": "01a17a0f-cb8b-7292-a107-62c763d799ea",
+      "cohort": "current-guidance",
+      "sources": {
+        "rollout": {
+          "path": "/private/tmp/ocm-fleet-fm124-revised-v2.z14h4dzu/artifacts/revised-1/rollout.jsonl",
+          "sha256": "d3cab85a1eb849bdd65af9185d1ad7495830bffa44b8d66a2bb313fc4f01703d"
+        },
+        "run.json": {
+          "path": "/private/tmp/ocm-fleet-fm124-revised-v2.z14h4dzu/artifacts/revised-1/run.json",
+          "sha256": "b693148d7d132f686e1be3e1933145a4bde0e1ff277a44e0402ad03de0c3fc9b"
+        },
+        "manifest.json": {
+          "path": "/private/tmp/ocm-fleet-fm124-revised-v2.z14h4dzu/manifest.json",
+          "sha256": "03140bd4ffde6a6b4470a10ba502c4e2ca1e4811a00fc89ce967e1b212893b77"
+        },
+        "review.json": {
+          "path": "/private/tmp/ocm-fleet-fm124-revised-v2.z14h4dzu/reviews/revised-1.json",
+          "sha256": "2c5d3148d70cf701e198e9110830f3962d9f0e45dc9d5564f644e4d9558380df"
+        },
+        "result.json": {
+          "path": "/private/tmp/ocm-fleet-fm124-revised-v2.z14h4dzu/assessment/revised-1/result.json",
+          "sha256": "d91850449a5ae46844ea6fa63cb3968876461ba42bf532049498001962dbeb13"
+        },
+        "cli.log": {
+          "path": "/private/tmp/ocm-fleet-fm124-revised-v2.z14h4dzu/assessment/revised-1/cli.log",
+          "sha256": "475997eeec9e0add0a5c98221ebe8f190d742d564957b664e1cf5a8453fd1781"
+        },
+        "stream.log": {
+          "path": "/private/tmp/ocm-fleet-fm124-revised-v2.z14h4dzu/assessment/revised-1/stream.log",
+          "sha256": "7fe36edec3eecee000d085d6a20ef68adce427c0817a951dd8d4afc4721a04c4"
+        },
+        "login-check.jsonl": {
+          "path": "/private/tmp/ocm-fleet-fm124-revised-v2.z14h4dzu/assessment/revised-1/login-check.jsonl",
+          "sha256": "e99643712b875eb26dd9da8fa4537e96cee38437774d5b1d72be6342fc0c29bf"
+        }
+      },
+      "artifacts": {
+        "rollout.jsonl": "/private/tmp/ocm-fleet-fm124-revised-v2.z14h4dzu/artifacts/revised-1/rollout.jsonl",
+        "events.jsonl": "/private/tmp/ocm-fleet-fm124-revised-v2.z14h4dzu/artifacts/revised-1/events.jsonl",
+        "changes.patch": "/private/tmp/ocm-fleet-fm124-revised-v2.z14h4dzu/artifacts/revised-1/changes.patch",
+        "final.md": "/private/tmp/ocm-fleet-fm124-revised-v2.z14h4dzu/artifacts/revised-1/final.md"
+      },
+      "additional_e2e_test_runs": [
+        {
+          "event_id": "exec-4dd3e639-ed59-4e8b-8cfb-52c947dba8b0",
+          "command": "npx nx run e2e-cli:test",
+          "exit_code": 1,
+          "test_totals": {
+            "total": 167,
+            "failed": 3,
+            "passed": 164
+          },
+          "contains_eperm_text": true
+        },
+        {
+          "event_id": "exec-fb215906-c922-433e-861e-5e50124545cc",
+          "command": "npx nx run e2e-cli:test -- --exclude tests/support/https.test.ts",
+          "exit_code": 0,
+          "test_totals": {
+            "total": 164,
+            "passed": 164
+          },
+          "contains_eperm_text": false
+        }
+      ]
+    },
+    {
+      "run": "revised-2",
+      "first_recorded_edit": {
+        "event_id": "exec-9963e84a-13c5-4b0a-9a97-c3f9664a0d70",
+        "record_number": 246,
+        "status": "recorded FileChange",
+        "call_id": "call_0A5M1sZ7jyNnWxDSqNLZEbZC",
+        "request_number": 17
+      },
+      "context": {
+        "checkpoints": {
+          "initial_request": {
+            "request_number": 1,
+            "input_tokens": 14836,
+            "cached_input_tokens": 0
+          },
+          "before_first_edit": {
+            "request_number": 17,
+            "input_tokens": 79787,
+            "cached_input_tokens": 78675
+          }
+        },
+        "totals": {
+          "input_tokens": 12168374,
+          "cached_input_tokens": 11970390,
+          "output_tokens": 96305,
+          "reasoning_output_tokens": 61308
+        },
+        "total_input_plus_output_tokens": 12264679,
+        "requests": 96,
+        "maximum_request_input_tokens": 197699,
+        "compactions_observed": 0
+      },
+      "overall": {
+        "tool_calls": 95,
+        "tool_calls_by_name": {
+          "exec": 95
+        },
+        "shell_commands": 92,
+        "shell_exit_codes": {
+          "0": 81,
+          "1": 8,
+          "2": 3
+        },
+        "nonzero_shell_exits": 11,
+        "unknown_shell_exits": 0,
+        "commands_by_logged_kind": {
+          "list_files": 2,
+          "read": 27,
+          "search": 10,
+          "unknown": 56
+        },
+        "recognized_skill_reads": 0,
+        "skill_reads_by_name": {},
+        "file_change_events": 25,
+        "file_change_events_by_status": {
+          "completed": 25
+        }
+      },
+      "before_first_edit": {
+        "tool_calls": 16,
+        "tool_calls_by_name": {
+          "exec": 16
+        },
+        "shell_commands": 24,
+        "shell_exit_codes": {
+          "0": 22,
+          "1": 1,
+          "2": 1
+        },
+        "nonzero_shell_exits": 2,
+        "unknown_shell_exits": 0,
+        "commands_by_logged_kind": {
+          "read": 11,
+          "search": 6,
+          "unknown": 8
+        },
+        "recognized_skill_reads": 0,
+        "skill_reads_by_name": {},
+        "file_change_events": 0,
+        "file_change_events_by_status": {}
+      },
+      "assessment": {
+        "jobs": {
+          "built_cli": {
+            "total": 7,
+            "failed_or_error": 0,
+            "skipped": 0,
+            "exit_code": 0
+          },
+          "writable": {
+            "total": 4,
+            "failed_or_error": 0,
+            "skipped": 0,
+            "exit_code": 0
+          }
+        },
+        "total": 11,
+        "failed_or_error": 0,
+        "skipped": 0,
+        "nonzero_job_exits": 0,
+        "scope": "Only the checks present in these logs; no inference about untested behavior."
+      },
+      "supplemental_login_check": {
+        "check": "login_stream_contract",
+        "method": "supplemental_static_check",
+        "outcome": "unresolved",
+        "emitted_streams": [],
+        "helper_streams": [
+          "stdout"
+        ],
+        "exit_code": 2,
+        "sources": {
+          "/private/tmp/ocm-fleet-fm124-revised-v2.z14h4dzu/harness/login_stream_contract.mjs": "2a896211f90f03f60ebddc64c6913ca5c1416c46b7325e9b22e2a2cb6f74be08",
+          "/private/tmp/ocm-fleet-fm124-revised-v2.z14h4dzu/revised-2/client/cli/src/auth/login.ts": "02fd330801e64556e122e12b8e87b3f1e1a9cf2d9cbe696bde91111eff8fa5ab",
+          "/private/tmp/ocm-fleet-fm124-revised-v2.z14h4dzu/revised-2/e2e/cli/tests/support/fleetctl.ts": "17054e78d30e2c3b6077644fcab851adffb6941d7daedd9646c5f95e5376a457"
+        }
+      },
+      "elapsed_seconds": 860.515,
+      "thread_id": "01a17a0f-cb8b-7d70-9942-e43910bc9ebe",
+      "cohort": "current-guidance",
+      "sources": {
+        "rollout": {
+          "path": "/private/tmp/ocm-fleet-fm124-revised-v2.z14h4dzu/artifacts/revised-2/rollout.jsonl",
+          "sha256": "4fe27996cc3d437ccad4bc871fffffb846e49e9efd5f3b38d9648830824ed105"
+        },
+        "run.json": {
+          "path": "/private/tmp/ocm-fleet-fm124-revised-v2.z14h4dzu/artifacts/revised-2/run.json",
+          "sha256": "c8fb0d5a43ef8ebd1de383202e145550c43786ac37f42cf4878d4998f7ab9e4e"
+        },
+        "manifest.json": {
+          "path": "/private/tmp/ocm-fleet-fm124-revised-v2.z14h4dzu/manifest.json",
+          "sha256": "03140bd4ffde6a6b4470a10ba502c4e2ca1e4811a00fc89ce967e1b212893b77"
+        },
+        "review.json": {
+          "path": "/private/tmp/ocm-fleet-fm124-revised-v2.z14h4dzu/reviews/revised-2.json",
+          "sha256": "db559289eebd67c31b161c7b605a7fa43326dc9677a5df03c8d2f5d850b82caf"
+        },
+        "result.json": {
+          "path": "/private/tmp/ocm-fleet-fm124-revised-v2.z14h4dzu/assessment/revised-2/result.json",
+          "sha256": "ede874b27299dd47017d8fbfc6f3081bb112e364de95172386fa46bfc69c3da2"
+        },
+        "cli.log": {
+          "path": "/private/tmp/ocm-fleet-fm124-revised-v2.z14h4dzu/assessment/revised-2/cli.log",
+          "sha256": "2f802a4ee6df1160b0944d718670bbbe4f9df712c04b4e53e8d282deaa4022a6"
+        },
+        "stream.log": {
+          "path": "/private/tmp/ocm-fleet-fm124-revised-v2.z14h4dzu/assessment/revised-2/stream.log",
+          "sha256": "c162c624c2fa29b11059d1f0693d2f31ff6e62f0bada24a9b73fd0ca60dc14f9"
+        },
+        "login-check.jsonl": {
+          "path": "/private/tmp/ocm-fleet-fm124-revised-v2.z14h4dzu/assessment/revised-2/login-check.jsonl",
+          "sha256": "e25362650c602f8f3f18de8d2d95ed6f9321d7be3672f142c87f0f5bc0eb4e20"
+        }
+      },
+      "artifacts": {
+        "rollout.jsonl": "/private/tmp/ocm-fleet-fm124-revised-v2.z14h4dzu/artifacts/revised-2/rollout.jsonl",
+        "events.jsonl": "/private/tmp/ocm-fleet-fm124-revised-v2.z14h4dzu/artifacts/revised-2/events.jsonl",
+        "changes.patch": "/private/tmp/ocm-fleet-fm124-revised-v2.z14h4dzu/artifacts/revised-2/changes.patch",
+        "final.md": "/private/tmp/ocm-fleet-fm124-revised-v2.z14h4dzu/artifacts/revised-2/final.md"
+      },
+      "additional_e2e_test_runs": []
     }
   ],
-  "supplemental_check_note": "Post-hoc static direct-stream wiring check, not part of frozen 11-case acceptance; no browser login exercised. Identical checker run against all four completed subjects without modifying them."
+  "supplemental_check_note": "Post-hoc static direct-stream wiring check, not part of frozen 11-case acceptance; no browser login exercised. Identical checker run against all four completed subjects without modifying them.",
+  "cohorts": {
+    "original-guidance": {
+      "runs": [
+        "control-1",
+        "control-2"
+      ],
+      "guidance": "Historical root/nested guides and installed Nx skills"
+    },
+    "lean-nx-guidance": {
+      "runs": [
+        "treatment-1",
+        "treatment-2"
+      ],
+      "guidance_commit": "53e497b",
+      "guidance": "Lean Nx section and Nx installation removal; historical nested guides"
+    },
+    "current-guidance": {
+      "runs": [
+        "revised-1",
+        "revised-2"
+      ],
+      "guidance_commit": "7b8aeb9cb35ed5f4dadd67ad15014d97d576ee9f",
+      "guidance_sha256": {
+        "AGENTS.md": "2ff33c289c5ec2d6b56c86628bd696bfd4044fd3420e635ecee1adea694b54a0",
+        "client/cli/AGENTS.md": "4e660c315c592003ac9b3785839be9e82fc47fc255335925af206557433c4d05",
+        "docs/ui/AGENTS.md": "cdf050b061466de4fc7539ab168c83aeb47d7540530ff8c109f4bddee80ee89c",
+        "server/AGENTS.md": "48ec0e235823be4a6f911dabbacde3a86a2e71fe7dac5447330ecb4027616738"
+      },
+      "guidance": "Complete current root/CLI/UI/server agent guides; Nx installation removal",
+      "comparison_validation": {
+        "reference_bundle": "/private/tmp/ocm-fleet-fm124-treatment-v2.0rz45_hl",
+        "only_initial_guidance_message_differs_after_path_envelope_normalization_and_recorded_tool_description_exception": true,
+        "tool_schema_metadata_drift": {
+          "field": "additional_tools.tools[2].tools[4].description",
+          "old_sha256": "fedcf854d77e7621a7d43ba8d7376fdc2aa51ac23f18fcff8385c13be86d9c98",
+          "new_sha256": "84105a28084825906966e9365f1c0948020057aac4415a81b1c5e69435d4e973",
+          "diff": "--- \n+++ \n@@ -2,9 +2,9 @@\n         Available model overrides (optional; inherited parent model is preferred):\n - `gpt-6.1-sol`: Latest workhorse model for coding and everyday work. Reasoning efforts: low (default), medium, high, xhigh, max, ultra. Service tiers: priority, ultrafast.\n - `gpt-6-astra`: Frontier intelligence for the most demanding work. Reasoning efforts: low (default), medium, high, xhigh, max, ultra. Service tiers: priority, ultrafast.\n+- `gpt-6.1-terra`: GPT-6.1 Terra Codex model. Reasoning efforts: low (default), medium, high, xhigh, max, ultra. Service tiers: priority.\n - `gpt-6-sol`: Previous generation workhorse model. Reasoning efforts: low, medium (default), high, xhigh, max, ultra. Service tiers: priority.\n - `gpt-6-luna`: Fast and affordable model for easier tasks. Reasoning efforts: low, medium (default), high, xhigh, max. Service tiers: priority.\n-- `gpt-5.6-sol`: Older generation workhorse model. Reasoning efforts: low (default), medium, high, xhigh, max, ultra. Service tiers: priority.\n         Spawns an agent to work on the specified task. If your current task is `/root/task1` and you spawn_agent with task_name \"task_3\" the agent will have canonical task name `/root/task1/task_3`.\n You are then able to refer to this agent as `task_3` or `/root/task1/task_3` interchangeably. However an agent `/root/task2/task_3` would only be able to communicate with this agent via its canonical name `/root/task1/task_3`.\n The spawned agent will have the same tools as you and the ability to spawn its own subagents.\n"
+        },
+        "historical_application_and_build_tree_unchanged": true,
+        "guidance_changed_paths": [
+          ".agents/skills/link-workspace-packages/SKILL.md",
+          ".agents/skills/monitor-ci/SKILL.md",
+          ".agents/skills/monitor-ci/references/fix-flows.md",
+          ".agents/skills/monitor-ci/scripts/ci-poll-decide.mjs",
+          ".agents/skills/monitor-ci/scripts/ci-state-update.mjs",
+          ".agents/skills/nx-generate/SKILL.md",
+          ".agents/skills/nx-import/SKILL.md",
+          ".agents/skills/nx-import/references/ESLINT.md",
+          ".agents/skills/nx-import/references/GRADLE.md",
+          ".agents/skills/nx-import/references/JEST.md",
+          ".agents/skills/nx-import/references/NEXT.md",
+          ".agents/skills/nx-import/references/TURBOREPO.md",
+          ".agents/skills/nx-import/references/VITE.md",
+          ".agents/skills/nx-plugins/SKILL.md",
+          ".agents/skills/nx-run-tasks/SKILL.md",
+          ".agents/skills/nx-workspace/SKILL.md",
+          ".agents/skills/nx-workspace/references/AFFECTED.md",
+          ".claude/settings.json",
+          ".claude/skills/link-workspace-packages",
+          ".claude/skills/monitor-ci",
+          ".claude/skills/nx-generate",
+          ".claude/skills/nx-import",
+          ".claude/skills/nx-plugins",
+          ".claude/skills/nx-run-tasks",
+          ".claude/skills/nx-workspace",
+          ".cursor/skills/link-workspace-packages",
+          ".cursor/skills/monitor-ci",
+          ".cursor/skills/nx-generate",
+          ".cursor/skills/nx-import",
+          ".cursor/skills/nx-plugins",
+          ".cursor/skills/nx-run-tasks",
+          ".cursor/skills/nx-workspace",
+          "AGENTS.md",
+          "client/cli/AGENTS.md",
+          "docs/ui/AGENTS.md",
+          "server/AGENTS.md",
+          "skills-lock.json"
+        ],
+        "excluded_current_generator_and_project_metadata_changes": true
+      }
+    }
+  }
 }

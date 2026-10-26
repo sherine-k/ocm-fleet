@@ -76,6 +76,14 @@ section is transplanted onto the historical root guide; the seven Nx skills,
 their Claude/Cursor links, lockfile, and Nx-only Claude plugin settings are
 removed. Nested guides and application source stay at the historical baseline.
 
+For broader guidance revisions, use `--guidance-from "$repository"` instead.
+This prepares `revised-1` and `revised-2`, overlays all tracked `AGENTS.md` files
+(including additions/removals), and retains the Nx skill/plugin removal. It
+records the source commit and exact guide hashes. Application code, project
+metadata, build targets, and dependencies remain historical; generator changes
+are not copied. Profile guidance/global skills are unchanged unless separately
+recorded as an experimental factor. Preserve the earlier cohorts in results.
+
 `capture` launches two model sessions and emits unreviewed checkpoint summaries
 and mechanical `tool-statistics.json` activity counts.
 Review their transcripts, then regenerate the primary summary with annotations:
@@ -138,9 +146,11 @@ subject conversations. Preserve
 failures; do not repair or coach completed subjects. Setup and assessment usage
 are excluded from subject totals. Live authentication/backend coverage is absent.
 
-The four completed v2 runs are consolidated in [results.json](results.json).
+The six completed v2 runs are consolidated in [results.json](results.json).
 Keep one current data file and [short table](README.md); earlier writeups,
 checkpoint snapshots, and detailed request timelines live under [archive/](archive/).
-Controls completed October 23 and treatments October 26, 2026. Checkout paths
-and environment dates differ between cohorts. Two runs per cohort do not
-establish a reliable total-cost or speed effect.
+Controls completed October 23; lean and revised treatments completed October 26,
+2026. Revised treatments use all current guides at `7b8aeb9`, including newer
+nested guides. A change to the advertised subagent model list is recorded as
+tool-description drift. Checkout paths and environment dates also differ between
+cohorts. Two runs per cohort do not establish a reliable total-cost or speed effect.

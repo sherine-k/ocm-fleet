@@ -2,8 +2,9 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
+import subprocess
 
-from control_pair import apply_lean_guidance, normalize
+from control_pair import apply_guidance_tree, apply_lean_guidance, normalize
 
 
 class SnapshotComparisonTests(unittest.TestCase):
@@ -80,6 +81,46 @@ Keep this comment.
             with self.assertRaises(ValueError):
                 apply_lean_guidance(root, "## Nx\nlean\n## Understanding the domain")
             self.assertTrue(settings.exists())
+
+
+class CurrentGuidanceTests(unittest.TestCase):
+    def test_copies_current_tracked_guides_without_application_or_build_changes(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            source, checkout = (Path(temporary) / name for name in ("source", "subject"))
+            source.mkdir()
+            checkout.mkdir()
+            subprocess.run(["git", "init", "-q", str(source)], check=True)
+            guide = "# New root\n## Nx\nUse npx nx.\n## Understanding the domain\nNew domain index.\n"
+            (source / "AGENTS.md").write_text(guide)
+            for name, text in (("client/cli/AGENTS.md", "New CLI policy"),
+                               ("server/AGENTS.md", "Scoped server policy"),
+                               ("client/cli/project.json", "new build configuration")):
+                path = source / name
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text(text)
+            subprocess.run(["git", "-C", str(source), "add", "."], check=True)
+            (source / "untracked/AGENTS.md").parent.mkdir()
+            (source / "untracked/AGENTS.md").write_text("Do not copy incidental files")
+            (checkout / "AGENTS.md").write_text(
+                "<!-- nx configuration start-->old Nx<!-- nx configuration end-->\nOld domain")
+            for name, text in (("client/cli/AGENTS.md", "Old CLI policy"),
+                               ("obsolete/AGENTS.md", "Removed guide"),
+                               ("client/cli/project.json", "historical build configuration"),
+                               ("client/cli/main.ts", "historical application"),
+                               (".agents/skills/nx-workspace/SKILL.md", "Nx skill")):
+                path = checkout / name
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text(text)
+            hashes = apply_guidance_tree(checkout, source)
+            self.assertEqual((checkout / "AGENTS.md").read_text(), guide)
+            self.assertEqual((checkout / "client/cli/AGENTS.md").read_text(), "New CLI policy")
+            self.assertEqual((checkout / "server/AGENTS.md").read_text(), "Scoped server policy")
+            self.assertEqual((checkout / "client/cli/project.json").read_text(), "historical build configuration")
+            self.assertEqual((checkout / "client/cli/main.ts").read_text(), "historical application")
+            self.assertFalse((checkout / "obsolete/AGENTS.md").exists())
+            self.assertFalse((checkout / "untracked/AGENTS.md").exists())
+            self.assertFalse((checkout / ".agents/skills/nx-workspace").exists())
+            self.assertEqual(set(hashes), {"AGENTS.md", "client/cli/AGENTS.md", "server/AGENTS.md"})
 
 
 if __name__ == "__main__":
