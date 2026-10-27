@@ -5,7 +5,7 @@
   "reasoning_effort": "max",
   "codex_home": "/Users/ahenning/.codex-work",
   "cli_version": "codex-cli 0.164.0",
-  "method": "Mechanical replay of frozen run and assessment logs; no model calls or source review.",
+  "method": "Mechanical replay of frozen run/assessment logs; login_stream_review is a separate post-hoc model source judgement.",
   "definitions": {
     "tokens": "Provider usage: cached input is included in input; reasoning is included in output. Initial input is the whole request. Accumulated input counts history repeatedly and is not context size or dollar cost.",
     "tool_calls": "Model-issued tool calls, grouped by name; nested shell executions are separate, not added to this total.",
@@ -14,7 +14,8 @@
     "commands_by_logged_kind": "Logger classifications, once per kind per shell command; categories may overlap and unknown is retained.",
     "before_first_edit": "Excludes the entire tool call enclosing the first successful FileChange event, including same-call reads. Shell-based writes are not detected. Missing/ambiguous boundaries are null.",
     "nonzero_shell_exits": "Observed nonzero exits, including intentional test failures and searches without matches; not a count of defects remaining.",
-    "additional_e2e_test_runs": "Actual logged npx nx run e2e-cli:test commands and pinned Vitest summary counts. Empty means not run; absent summaries stay null. contains_eperm_text is a literal log marker, not a cause classification. These runs are outside the frozen 11-case assessment."
+    "additional_e2e_test_runs": "Actual logged npx nx run e2e-cli:test commands and pinned Vitest summary counts. Empty means not run; absent summaries stay null. contains_eperm_text is a literal log marker, not a cause classification. These runs are outside the frozen 11-case assessment.",
+    "login_stream_review": "User-authorized model source judgement of the AUTH_URL producer/helper stream contract, tracing callbacks and imported writers for all six subjects. Narrow source consistency verdict, not an exercised login. Original automated supplemental_login_check results and all mechanical metrics are retained unchanged."
   },
   "raw_statistics_directory": "/private/tmp/ocm-fleet-fm124-statistics-qcrh44m3",
   "runs": [
@@ -171,7 +172,35 @@
         "final.md": "/private/tmp/ocm-fleet-fm124-v2.tvdbmukb/artifacts/control-1/final.md"
       },
       "cohort": "original-guidance",
-      "additional_e2e_test_runs": []
+      "additional_e2e_test_runs": [],
+      "login_stream_review": {
+        "method": "model_source_review",
+        "scope": "AUTH_URL producer and E2E helper stream consistency",
+        "outcome": "failed",
+        "producer_stream": "stderr",
+        "consumer_stream": "stdout",
+        "live_login_exercised": false,
+        "evidence": [
+          {
+            "path": "/private/tmp/ocm-fleet-fm124-v2.tvdbmukb/control-1/client/cli/src/auth/login.ts",
+            "line": 82,
+            "text": "process.stderr,",
+            "sha256": "4b5af5458514f87a0a7a738343d3231249723ab722975acc51ac3d817f1cf415"
+          },
+          {
+            "path": "/private/tmp/ocm-fleet-fm124-v2.tvdbmukb/control-1/client/cli/src/streams.ts",
+            "line": 16,
+            "text": "stream.write(value, (error?: Error | null) => {",
+            "sha256": "e94b73a8aedf3b418689118f9a2923ed5a73d101e359910cfbcfeccc173d6139"
+          },
+          {
+            "path": "/private/tmp/ocm-fleet-fm124-v2.tvdbmukb/control-1/e2e/cli/tests/support/fleetctl.ts",
+            "line": 207,
+            "text": "const lines = readline.createInterface({ input: child.stdout });",
+            "sha256": "17054e78d30e2c3b6077644fcab851adffb6941d7daedd9646c5f95e5376a457"
+          }
+        ]
+      }
     },
     {
       "run": "control-2",
@@ -328,7 +357,41 @@
         "final.md": "/private/tmp/ocm-fleet-fm124-v2.tvdbmukb/artifacts/control-2/final.md"
       },
       "cohort": "original-guidance",
-      "additional_e2e_test_runs": []
+      "additional_e2e_test_runs": [],
+      "login_stream_review": {
+        "method": "model_source_review",
+        "scope": "AUTH_URL producer and E2E helper stream consistency",
+        "outcome": "passed",
+        "producer_stream": "stderr",
+        "consumer_stream": "stderr",
+        "live_login_exercised": false,
+        "evidence": [
+          {
+            "path": "/private/tmp/ocm-fleet-fm124-v2.tvdbmukb/control-2/client/cli/src/auth/login.ts",
+            "line": 83,
+            "text": "process.stderr,",
+            "sha256": "ad633b97d66c796d2333edbdd5cfebda5b79f82cea71df4ca2a6a4d7726ef092"
+          },
+          {
+            "path": "/private/tmp/ocm-fleet-fm124-v2.tvdbmukb/control-2/client/cli/src/output.ts",
+            "line": 14,
+            "text": "await writeChunk(stream, line);",
+            "sha256": "1b988a3efbe038887c088798647ce57682cd6e544142c6c2de74348b5728b56f"
+          },
+          {
+            "path": "/private/tmp/ocm-fleet-fm124-v2.tvdbmukb/control-2/client/cli/src/output.ts",
+            "line": 32,
+            "text": "stream.write(chunk, (error?: Error | null) => {",
+            "sha256": "1b988a3efbe038887c088798647ce57682cd6e544142c6c2de74348b5728b56f"
+          },
+          {
+            "path": "/private/tmp/ocm-fleet-fm124-v2.tvdbmukb/control-2/e2e/cli/tests/support/fleetctl.ts",
+            "line": 207,
+            "text": "const lines = readline.createInterface({ input: child.stderr });",
+            "sha256": "bb5f613d4028423b4bb20e06b154c40618a7fe313d72721686a0b6f6027c6556"
+          }
+        ]
+      }
     },
     {
       "run": "treatment-1",
@@ -512,7 +575,35 @@
           },
           "contains_eperm_text": false
         }
-      ]
+      ],
+      "login_stream_review": {
+        "method": "model_source_review",
+        "scope": "AUTH_URL producer and E2E helper stream consistency",
+        "outcome": "passed",
+        "producer_stream": "stderr",
+        "consumer_stream": "stderr",
+        "live_login_exercised": false,
+        "evidence": [
+          {
+            "path": "/private/tmp/ocm-fleet-fm124-treatment-v2.0rz45_hl/treatment-1/client/cli/src/auth/login.ts",
+            "line": 82,
+            "text": "process.stderr,",
+            "sha256": "dabe2cb126a60ec7fb64450e765af42fd415c86e5524b5e407cf79312c5da121"
+          },
+          {
+            "path": "/private/tmp/ocm-fleet-fm124-treatment-v2.0rz45_hl/treatment-1/client/cli/src/app.tsx",
+            "line": 44,
+            "text": "stream.write(output, (error?: Error | null) => {",
+            "sha256": "39a4231d4d9e4704b87570a61870f4e5c48d2466cffdb4f6e96598626a70bbd7"
+          },
+          {
+            "path": "/private/tmp/ocm-fleet-fm124-treatment-v2.0rz45_hl/treatment-1/e2e/cli/tests/support/fleetctl.ts",
+            "line": 204,
+            "text": "const lines = readline.createInterface({ input: child.stderr });",
+            "sha256": "b8942edc2ec43c34b1276ae55f1989190a42c44815d5b3c8ad13eb1f46818a61"
+          }
+        ]
+      }
     },
     {
       "run": "treatment-2",
@@ -662,7 +753,41 @@
         "final.md": "/private/tmp/ocm-fleet-fm124-treatment-v2.0rz45_hl/artifacts/treatment-2/final.md"
       },
       "cohort": "lean-nx-guidance",
-      "additional_e2e_test_runs": []
+      "additional_e2e_test_runs": [],
+      "login_stream_review": {
+        "method": "model_source_review",
+        "scope": "AUTH_URL producer and E2E helper stream consistency",
+        "outcome": "failed",
+        "producer_stream": "stderr",
+        "consumer_stream": "stdout",
+        "live_login_exercised": false,
+        "evidence": [
+          {
+            "path": "/private/tmp/ocm-fleet-fm124-treatment-v2.0rz45_hl/treatment-2/client/cli/src/auth/login.ts",
+            "line": 82,
+            "text": "process.stderr,",
+            "sha256": "e41e263c4b9951cd8432343c598bff1d58d757aef2a645ab9e1f385f28a64cbe"
+          },
+          {
+            "path": "/private/tmp/ocm-fleet-fm124-treatment-v2.0rz45_hl/treatment-2/client/cli/src/output.ts",
+            "line": 27,
+            "text": "return writeToStream(stream, `${withoutTrailingNewlines}\\n`);",
+            "sha256": "b1c6a02fc7264bfb7d0c4f8c5f5e7b45e22bbacc269af9d9cc832660d5546d49"
+          },
+          {
+            "path": "/private/tmp/ocm-fleet-fm124-treatment-v2.0rz45_hl/treatment-2/client/cli/src/output.ts",
+            "line": 44,
+            "text": "stream.write(value, (error) => {",
+            "sha256": "b1c6a02fc7264bfb7d0c4f8c5f5e7b45e22bbacc269af9d9cc832660d5546d49"
+          },
+          {
+            "path": "/private/tmp/ocm-fleet-fm124-treatment-v2.0rz45_hl/treatment-2/e2e/cli/tests/support/fleetctl.ts",
+            "line": 207,
+            "text": "const lines = readline.createInterface({ input: child.stdout });",
+            "sha256": "17054e78d30e2c3b6077644fcab851adffb6941d7daedd9646c5f95e5376a457"
+          }
+        ]
+      }
     },
     {
       "run": "revised-1",
@@ -846,7 +971,41 @@
           },
           "contains_eperm_text": false
         }
-      ]
+      ],
+      "login_stream_review": {
+        "method": "model_source_review",
+        "scope": "AUTH_URL producer and E2E helper stream consistency",
+        "outcome": "passed",
+        "producer_stream": "stderr",
+        "consumer_stream": "stderr",
+        "live_login_exercised": false,
+        "evidence": [
+          {
+            "path": "/private/tmp/ocm-fleet-fm124-revised-v2.z14h4dzu/revised-1/client/cli/src/auth/login.ts",
+            "line": 83,
+            "text": "process.stderr,",
+            "sha256": "aeb1ca7124f9facd5963a3ca0709dc56a7e618dc4b3247cca936b61eb9d2d443"
+          },
+          {
+            "path": "/private/tmp/ocm-fleet-fm124-revised-v2.z14h4dzu/revised-1/client/cli/src/app.tsx",
+            "line": 13,
+            "text": "await writeLine(stdout, output);",
+            "sha256": "055cf853e45a3b6790a2f069ce420dc5d464fef84df66c7f3ca0c5233beb5180"
+          },
+          {
+            "path": "/private/tmp/ocm-fleet-fm124-revised-v2.z14h4dzu/revised-1/client/cli/src/app.tsx",
+            "line": 38,
+            "text": "stdout.write(line, (error) => {",
+            "sha256": "055cf853e45a3b6790a2f069ce420dc5d464fef84df66c7f3ca0c5233beb5180"
+          },
+          {
+            "path": "/private/tmp/ocm-fleet-fm124-revised-v2.z14h4dzu/revised-1/e2e/cli/tests/support/fleetctl.ts",
+            "line": 207,
+            "text": "const lines = readline.createInterface({ input: child.stderr });",
+            "sha256": "e81ce8f06f38d0103d5f6b056f9a474ee8ddfba7f1b5cafb0ee8de5f306a5698"
+          }
+        ]
+      }
     },
     {
       "run": "revised-2",
@@ -1009,7 +1168,47 @@
         "changes.patch": "/private/tmp/ocm-fleet-fm124-revised-v2.z14h4dzu/artifacts/revised-2/changes.patch",
         "final.md": "/private/tmp/ocm-fleet-fm124-revised-v2.z14h4dzu/artifacts/revised-2/final.md"
       },
-      "additional_e2e_test_runs": []
+      "additional_e2e_test_runs": [],
+      "login_stream_review": {
+        "method": "model_source_review",
+        "scope": "AUTH_URL producer and E2E helper stream consistency",
+        "outcome": "failed",
+        "producer_stream": "stderr",
+        "consumer_stream": "stdout",
+        "live_login_exercised": false,
+        "evidence": [
+          {
+            "path": "/private/tmp/ocm-fleet-fm124-revised-v2.z14h4dzu/revised-2/client/cli/src/commands/auth/login.tsx",
+            "line": 12,
+            "text": "writeProgress(`AUTH_URL ${authorizationURL}\\nWaiting for callback...`),",
+            "sha256": "a809cc66726ae3fe0e3be2d09a224023db943e88759916e02b74b1694b84caf9"
+          },
+          {
+            "path": "/private/tmp/ocm-fleet-fm124-revised-v2.z14h4dzu/revised-2/client/cli/src/auth/login.ts",
+            "line": 91,
+            "text": "await showAuthorizationURL(authorizationURL.toString());",
+            "sha256": "02fd330801e64556e122e12b8e87b3f1e1a9cf2d9cbe696bde91111eff8fa5ab"
+          },
+          {
+            "path": "/private/tmp/ocm-fleet-fm124-revised-v2.z14h4dzu/revised-2/client/cli/src/app.tsx",
+            "line": 92,
+            "text": "return writeText(process.stderr, message);",
+            "sha256": "2d2609068d4090f0bf84430a308679de66cf786938d48b2dea2df004d0a30a1e"
+          },
+          {
+            "path": "/private/tmp/ocm-fleet-fm124-revised-v2.z14h4dzu/revised-2/client/cli/src/app.tsx",
+            "line": 65,
+            "text": "stream.write(text, finish);",
+            "sha256": "2d2609068d4090f0bf84430a308679de66cf786938d48b2dea2df004d0a30a1e"
+          },
+          {
+            "path": "/private/tmp/ocm-fleet-fm124-revised-v2.z14h4dzu/revised-2/e2e/cli/tests/support/fleetctl.ts",
+            "line": 207,
+            "text": "const lines = readline.createInterface({ input: child.stdout });",
+            "sha256": "17054e78d30e2c3b6077644fcab851adffb6941d7daedd9646c5f95e5376a457"
+          }
+        ]
+      }
     }
   ],
   "supplemental_check_note": "Post-hoc static direct-stream wiring check, not part of frozen 11-case acceptance; no browser login exercised. Identical checker run against all four completed subjects without modifying them.",

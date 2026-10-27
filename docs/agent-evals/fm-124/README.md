@@ -15,11 +15,11 @@ Model: `gpt-6-luna`, max reasoning; work profile: `~/.codex-work`.
 | Recognized skill reads | 1 / 1 | 1 / 1 | 0 / 0 | 0 / 0 | 0 / 0 | 0 / 0 |
 | Nonzero shell exits | 10 / 0 | 9 / 1 | 13 / 0 | 8 / 0 | 11 / 0 | 11 / 2 |
 | Frozen checks failed | 0 / 11 | 0 / 11 | 0 / 11 | 0 / 11 | 0 / 11 | 0 / 11 |
-| Supplemental login check | failed | passed | passed | failed | passed | unresolved |
+| Login stream contract (model review) | failed | passed | passed | failed | passed | failed |
 
 Activity rows use **overall / before the first edit’s tool call**. Frozen checks use **failed / total**.
-Nonzero exits include iterative failures/searches. Login is a supplemental static check; browser login was not exercised.
-`unresolved` means the static check cannot follow an indirect writer. Additional E2E commands and reported test counts are retained in JSON.
+Nonzero exits include iterative failures/searches. Login verdicts are post-hoc model source reviews of stream wiring; browser login was not exercised.
+Original automated login results and additional E2E commands/test counts are retained separately in JSON.
 Input includes cached input; output includes reasoning. Accumulated tokens repeatedly count history.
 Revised runs include newer nested guides; generator/build metadata stays historical. The advertised subagent model list also changed; the exact diff is recorded in JSON.
 The JSON retains detailed counts, token subsets, source hashes, and log/patch paths. Two runs per cohort are exploratory.

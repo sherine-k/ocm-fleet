@@ -136,6 +136,13 @@ declared AUTH_URL writer stream with the helper's readline input. It prints JSON
 and exits 0 for passed, 1 for failed, or 2 for unsupported/ambiguous wiring.
 It reads subject files without modifying them and does not exercise browser login.
 
+For this login stream contract, the user also authorized model source judgement.
+Trace AUTH_URL through callbacks/imported writers to its stream and compare the
+helper's readline input consistently across all subjects. Store the verdict and
+source evidence as `login_stream_review`, separately from the original automated
+`supplemental_login_check`. Label this review explicitly in the table; it does
+not change mechanical metrics, frozen acceptance, or establish a working login.
+
 ## Correctness and current state
 
 The frozen [acceptance rubric](acceptance-v2.md) covers the requested architecture,
