@@ -31,8 +31,25 @@ A process or component that performs domain or target-side work on behalf of
 the platform. In delivery discussions, **delivery agent** means the component
 that receives a [fulfillment](#fulfillment) payload, verifies the applicable
 [delivery authorization](#delivery-authorization), applies it to a [target](#target),
-and reports progress and health. A [fleetlet](#fleetlet) is transport
-infrastructure, not an agent, and does not perform this business logic.
+and reports progress and health. The canonical implementation combines:
+- The [fleetlet](#fleetlet), which provides common infrastructure used to implement agents. 
+- [Add-ons](#add-on-addon), supplying domain-specific capability implementations.
+```mermaid
+flowchart LR 
+    RM[Resource Manager]
+    subgraph Agent
+        Fleetlet
+        Handler[Addon Delivery Handler]
+        Indexer[Addon Indexer]
+    end
+    Target 
+
+    RM <--> Fleetlet
+    Fleetlet <--> Handler
+    Fleetlet <--> Indexer
+    Indexer --> Backing system (e.g. kube cluster)
+    Handler --> Backing system (e.g. cluster management API, kube cluster, ...)
+```
 
 ### Attestation
 
@@ -65,10 +82,13 @@ supply executable code.
 
 ### Channel
 
-A named, bidirectional gRPC stream multiplexed by a [fleetlet](#fleetlet). Channels are the
+A named, bidirectional message stream multiplexed by a [fleetlet](#fleetlet). Channels are the
 unit of routing, access control, traffic prioritization, and independent
 stream lifecycle. Built-in channels include control, access, delivery,
-status, and index; add-ons may define additional channels.
+status, and index; add-ons may define additional channels. 
+The local protocol and the platform-facing transport are independent choices. 
+Local connections use the same gRPC contract whether the fleetlet reaches the
+platform through gRPC/TLS, NATS, Kafka, HTTP/WebSocket, or some compatibility transport.
 
 ### Common evaluator
 
@@ -84,8 +104,10 @@ the payload; the [delivery agent](#agent) performs application at the
 [target](#target).
 
 The common evaluator is used by:
-- The resource manager, when accepting evidence, assembling deliveries, and updating the evidence log.
-- The delivery agent, independently of the resource manager, before applying a delivery.
+- The [resource manager](#resource-manager-rm), when accepting evidence, assembling deliveries,
+  and updating the evidence log.
+- The [fleetlet](#fleetlet), independently of the resource manager, before forwarding a delivery
+  onward at target side.
 
 ### Console
 
@@ -137,9 +159,9 @@ reconciliation state.
 
 The common append-only log of accepted [`TypedEvidence`](#typed-evidence)
 identities. It addresses the threat of a compromised [resource manager](#resource-manager-rm)
-rewriting a [verifier](#verifier)'s accepted history: replaying the same evidence as new,
+rewriting a [verifier](#verifier)'s accepted history: 
 omitting an earlier assertion, presenting a rollback, or assigning inconsistent positions.
-The resource manager assigns each evidence identity one canonical position, at most once,
+The honest resource manager assigns each evidence identity one canonical position, at most once,
 and delivers inclusion and consistency proofs to [targets](#target), which retain checkpoints.
 This provides ordering, inclusion, append-only consistency, and local rollback protection.
 It does not prevent the resource manager from withholding evidence or causing denial of
@@ -149,12 +171,6 @@ Possible implementations include an RFC 6962-style Merkle tree with signed
 checkpoints, an externally witnessed transparency log, or a signed hash-chain
 log with durable verifier checkpoints. These choices provide different
 inclusion, witnessing, and fork-detection properties.
-
-### `fleetctl`
-
-The command-line client for [OCM Fleet](#ocm-fleet). It authenticates users,
-invokes resource-manager APIs, and can provide operator workflows without
-being part of the [resource manager server](#resource-manager-rm).
 
 ### Extension
 
@@ -167,6 +183,15 @@ the platform's common identity, authorization, and orchestration contracts.
 Examples include a `clusters` managed-resource API, an inventory schema for
 Kubernetes objects, a delivery capability for a `kubernetes` target type, or
 an add-on-provided UI plugin.
+
+### `fleetctl`
+
+The command-line client for [OCM Fleet](#ocm-fleet). It authenticates users,
+invokes resource-manager APIs, and can provide operator workflows without
+being part of the [resource manager server](#resource-manager-rm).
+As client applications, fleetctl and the [console](#console) share a common core, 
+with extensions that apply to both simultaneously.
+
 
 ### Fleetlet
 
@@ -222,7 +247,7 @@ generate, potentially using target information for per-target customization.
 ### Management plane
 
 The APIs, services, and user interfaces through which a [platform instance](#platform-instance)
-represents, observes, configures, and governs [targets](#target) and coordinates
+represents, observes, configures, and governs [resources](architecture/resource_identity_and_api.md#resource-shapes-taxonomy) and coordinates
 their lifecycle. It includes the [resource manager server](#resource-manager-rm)
 and management capabilities supplied by participating [add-ons](#add-on-addon).
 It is the operational control layer, distinct from the target environments where
@@ -455,7 +480,7 @@ state, and delivery constraints authorize an operation. A verifier uses the
 authenticated [`AuthorityConfig`](#authorityconfig), invokes the applicable
 [provenance profile](#provenance-profile), and passes the authenticated
 assertions to the [common evaluator](#common-evaluator). A target-side verifier
-is commonly part of the [delivery agent](#agent); verification must complete
+is commonly part of the [fleetlet](#fleetlet) on the [delivery agent](#agent); verification must complete
 before that agent applies the payload to a [target](#target). The [resource
 manager](#resource-manager-rm) may also verify and assemble evidence, but a
 target must not treat the resource manager's result as a substitute for its
